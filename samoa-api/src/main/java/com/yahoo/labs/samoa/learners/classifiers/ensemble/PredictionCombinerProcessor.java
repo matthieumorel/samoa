@@ -51,8 +51,9 @@ public class PredictionCombinerProcessor implements Processor {
 
     /**
      * Sets the output stream.
-     *
-     * @param stream the new output stream
+     * 
+     * @param stream
+     *            the new output stream
      */
     public void setOutputStream(Stream stream) {
         outputStream = stream;
@@ -60,7 +61,7 @@ public class PredictionCombinerProcessor implements Processor {
 
     /**
      * Gets the output stream.
-     *
+     * 
      * @return the output stream
      */
     public Stream getOutputStream() {
@@ -69,7 +70,7 @@ public class PredictionCombinerProcessor implements Processor {
 
     /**
      * Gets the size ensemble.
-     *
+     * 
      * @return the ensembleSize
      */
     public int getSizeEnsemble() {
@@ -78,8 +79,9 @@ public class PredictionCombinerProcessor implements Processor {
 
     /**
      * Sets the size ensemble.
-     *
-     * @param ensembleSize the new size ensemble
+     * 
+     * @param ensembleSize
+     *            the new size ensemble
      */
     public void setSizeEnsemble(int ensembleSize) {
         this.ensembleSize = ensembleSize;
@@ -88,11 +90,12 @@ public class PredictionCombinerProcessor implements Processor {
     protected Map<Integer, Integer> mapCountsforInstanceReceived;
 
     protected Map<Integer, DoubleVector> mapVotesforInstanceReceived;
-    
+
     /**
      * On event.
-     *
-     * @param event the event
+     * 
+     * @param event
+     *            the event
      * @return true, if successful
      */
     public boolean process(ContentEvent event) {
@@ -100,12 +103,12 @@ public class PredictionCombinerProcessor implements Processor {
         ResultContentEvent inEvent = (ResultContentEvent) event;
         double[] prediction = inEvent.getClassVotes();
         int instanceIndex = (int) inEvent.getInstanceIndex();
-        
+
         addStatisticsforInstanceReceived(instanceIndex, inEvent.getClassifierIndex(), prediction, 1);
 
         if (inEvent.isLastEvent() || hasAllVotesArrivedInstance(instanceIndex)) {
             DoubleVector combinedVote = this.mapVotesforInstanceReceived.get(instanceIndex);
-            if (combinedVote == null){
+            if (combinedVote == null) {
                 combinedVote = new DoubleVector(new double[inEvent.getInstance().numClasses()]);
             }
             ResultContentEvent outContentEvent = new ResultContentEvent(inEvent.getInstanceIndex(),
@@ -128,8 +131,9 @@ public class PredictionCombinerProcessor implements Processor {
     public void reset() {
     }
 
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see samoa.core.Processor#newProcessor(samoa.core.Processor)
      */
     @Override
@@ -152,12 +156,12 @@ public class PredictionCombinerProcessor implements Processor {
         if (vote.sumOfValues() > 0.0) {
             vote.normalize();
             DoubleVector combinedVote = this.mapVotesforInstanceReceived.get(instanceIndex);
-            if (combinedVote == null){
+            if (combinedVote == null) {
                 combinedVote = new DoubleVector();
             }
             vote.scaleValues(getEnsembleMemberWeight(classifierIndex));
             combinedVote.addValues(vote);
-                    
+
             this.mapVotesforInstanceReceived.put(instanceIndex, combinedVote);
         }
         Integer count = this.mapCountsforInstanceReceived.get(instanceIndex);
@@ -175,10 +179,9 @@ public class PredictionCombinerProcessor implements Processor {
         this.mapCountsforInstanceReceived.remove(instanceIndex);
         this.mapVotesforInstanceReceived.remove(instanceIndex);
     }
-    
-     protected double getEnsembleMemberWeight(int i) {
+
+    protected double getEnsembleMemberWeight(int i) {
         return 1.0;
     }
 
-    
 }

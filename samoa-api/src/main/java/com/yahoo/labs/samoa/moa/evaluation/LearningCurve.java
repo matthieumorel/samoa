@@ -30,7 +30,7 @@ import com.yahoo.labs.samoa.moa.core.StringUtils;
 
 /**
  * Class that stores and keeps the history of evaluation measurements.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

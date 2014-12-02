@@ -59,7 +59,9 @@ final public class S4DoTask extends App {
     private final Logger logger = LoggerFactory.getLogger(S4DoTask.class);
     Task task;
 
-    @Inject @Named("evalTask") public String evalTask;
+    @Inject
+    @Named("evalTask")
+    public String evalTask;
 
     public S4DoTask() {
         super();
@@ -214,17 +216,20 @@ final public class S4DoTask extends App {
     /*
      * (non-Javadoc)
      * 
-     * @see org.apache.s4.core.App#createStream(java.lang.String, org.apache.s4.base.KeyFinder, org.apache.s4.core.ProcessingElement[])
+     * @see org.apache.s4.core.App#createStream(java.lang.String,
+     * org.apache.s4.base.KeyFinder, org.apache.s4.core.ProcessingElement[])
      */
     @Override
-    public <T extends Event> Stream<T> createStream(String name, KeyFinder<T> finder, ProcessingElement... processingElements) {
+    public <T extends Event> Stream<T> createStream(String name, KeyFinder<T> finder,
+            ProcessingElement... processingElements) {
         return super.createStream(name, finder, processingElements);
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.apache.s4.core.App#createStream(java.lang.String, org.apache.s4.core.ProcessingElement[])
+     * @see org.apache.s4.core.App#createStream(java.lang.String,
+     * org.apache.s4.core.ProcessingElement[])
      */
     @Override
     public <T extends Event> Stream<T> createStream(String name, ProcessingElement... processingElements) {

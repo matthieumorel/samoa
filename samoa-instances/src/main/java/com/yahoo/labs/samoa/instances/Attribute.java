@@ -32,16 +32,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * 
  * @author abifet
  */
-public class Attribute implements Serializable{
+public class Attribute implements Serializable {
 
-    
     public static final String ARFF_ATTRIBUTE = "@attribute";
     public static final String ARFF_ATTRIBUTE_NUMERIC = "NUMERIC";
-    
-	
+
     /**
      *
      */
@@ -64,19 +62,20 @@ public class Attribute implements Serializable{
     protected List<String> attributeValues;
 
     /**
-     *
+     * 
      * @return
      */
     public List<String> getAttributeValues() {
         return attributeValues;
     }
+
     /**
      *
      */
     protected int index;
 
     /**
-     *
+     * 
      * @param string
      */
     public Attribute(String string) {
@@ -85,7 +84,7 @@ public class Attribute implements Serializable{
     }
 
     /**
-     *
+     * 
      * @param attributeName
      * @param attributeValues
      */
@@ -94,7 +93,7 @@ public class Attribute implements Serializable{
         this.attributeValues = attributeValues;
         this.isNominal = true;
     }
-    
+
     /**
      *
      */
@@ -103,7 +102,7 @@ public class Attribute implements Serializable{
     }
 
     /**
-     *
+     * 
      * @return
      */
     public boolean isNominal() {
@@ -111,7 +110,7 @@ public class Attribute implements Serializable{
     }
 
     /**
-     *
+     * 
      * @return
      */
     public String name() {
@@ -119,7 +118,7 @@ public class Attribute implements Serializable{
     }
 
     /**
-     *
+     * 
      * @param value
      * @return
      */
@@ -128,7 +127,7 @@ public class Attribute implements Serializable{
     }
 
     /**
-     *
+     * 
      * @return
      */
     public boolean isNumeric() {
@@ -136,7 +135,7 @@ public class Attribute implements Serializable{
     }
 
     /**
-     *
+     * 
      * @return
      */
     public int numValues() {
@@ -149,10 +148,10 @@ public class Attribute implements Serializable{
     }
 
     /**
-     *
+     * 
      * @return
      */
-    public int index() { //RuleClassifier
+    public int index() { // RuleClassifier
         return this.index;
     }
 
@@ -164,10 +163,11 @@ public class Attribute implements Serializable{
     boolean isDate() {
         return isDate;
     }
+
     private Map<String, Integer> valuesStringAttribute;
 
     /**
-     *
+     * 
      * @param value
      * @return
      */
@@ -194,12 +194,12 @@ public class Attribute implements Serializable{
 
     @Override
     public String toString() {
-    	StringBuffer text = new StringBuffer();
-        
+        StringBuffer text = new StringBuffer();
+
         text.append(ARFF_ATTRIBUTE).append(" ").append(Utils.quote(this.name)).append(" ");
-        
-          text.append(ARFF_ATTRIBUTE_NUMERIC);
-        
+
+        text.append(ARFF_ATTRIBUTE_NUMERIC);
+
         return text.toString();
     }
 }

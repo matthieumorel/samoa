@@ -27,10 +27,10 @@ package com.yahoo.labs.samoa.instances;
 import java.io.Serializable;
 
 /**
- *
+ * 
  * @author abifet
  */
-public interface InstanceData extends Serializable{
+public interface InstanceData extends Serializable {
 
     public int numAttributes();
 
@@ -46,10 +46,10 @@ public interface InstanceData extends Serializable{
 
     public boolean isMissingSparse(int p1);
 
-    //public double value(Attribute attribute);
+    // public double value(Attribute attribute);
 
     public double[] toDoubleArray();
 
     public void setValue(int m_numAttributes, double d);
-    
+
 }

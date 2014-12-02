@@ -50,7 +50,8 @@ final public class ClusteringContentEvent implements ContentEvent {
      */
     public ClusteringContentEvent(long index, Instance instance) {
         /*
-         * if (instance != null) { this.instance = new SerializableInstance(instance); }
+         * if (instance != null) { this.instance = new
+         * SerializableInstance(instance); }
          */
         this.instance = instance;
         this.setKey(Long.toString(index));

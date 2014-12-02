@@ -47,7 +47,7 @@ import com.yahoo.labs.samoa.moa.classifiers.rules.core.Predicate;
 /**
  * Numeric binary conditional test for instances to use to split nodes in
  * AMRules.
- *
+ * 
  * @version $Revision: 1 $
  */
 public class NumericAttributeBinaryRulePredicate extends InstanceConditionalBinaryTest implements Predicate {
@@ -61,17 +61,18 @@ public class NumericAttributeBinaryRulePredicate extends InstanceConditionalBina
     protected int operator; // 0 =, 1<=, 2>
 
     public NumericAttributeBinaryRulePredicate() {
-    	this(0,0,0);
+        this(0, 0, 0);
     }
+
     public NumericAttributeBinaryRulePredicate(int attIndex, double attValue,
             int operator) {
         this.attIndex = attIndex;
         this.attValue = attValue;
         this.operator = operator;
     }
-    
+
     public NumericAttributeBinaryRulePredicate(NumericAttributeBinaryRulePredicate oldTest) {
-    	this(oldTest.attIndex, oldTest.attValue, oldTest.operator);
+        this(oldTest.attIndex, oldTest.attValue, oldTest.operator);
     }
 
     @Override
@@ -84,14 +85,14 @@ public class NumericAttributeBinaryRulePredicate extends InstanceConditionalBina
         double v = inst.value(instAttIndex);
         int ret = 0;
         switch (this.operator) {
-            case 0:
-                ret = (v == this.attValue) ? 0 : 1;
-                break;
-            case 1:
-                ret = (v <= this.attValue) ? 0 : 1;
-                break;
-            case 2:
-                ret = (v > this.attValue) ? 0 : 1;
+        case 0:
+            ret = (v == this.attValue) ? 0 : 1;
+            break;
+        case 1:
+            ret = (v <= this.attValue) ? 0 : 1;
+            break;
+        case 2:
+            ret = (v > this.attValue) ? 0 : 1;
         }
         return ret;
     }
@@ -123,7 +124,7 @@ public class NumericAttributeBinaryRulePredicate extends InstanceConditionalBina
 
     @Override
     public int[] getAttsTestDependsOn() {
-        return new int[]{this.attIndex};
+        return new int[] { this.attIndex };
     }
 
     public double getSplitValue() {
@@ -139,11 +140,11 @@ public class NumericAttributeBinaryRulePredicate extends InstanceConditionalBina
     public String toString() {
         if ((operator >= 0) && (operator <= 2)) {
             String compareChar = (operator == 0) ? "=" : (operator == 1) ? "<=" : ">";
-            //int equalsBranch = this.equalsPassesTest ? 0 : 1;
+            // int equalsBranch = this.equalsPassesTest ? 0 : 1;
             return "x" + this.attIndex
                     + ' '
                     + compareChar
-                    + ' ' 
+                    + ' '
                     + this.attValue;
         }
         throw new IndexOutOfBoundsException();
@@ -157,7 +158,7 @@ public class NumericAttributeBinaryRulePredicate extends InstanceConditionalBina
 
     public boolean isUsingSameAttribute(NumericAttributeBinaryRulePredicate predicate) {
         return (this.attIndex == predicate.attIndex
-                && this.operator == predicate.operator);
+        && this.operator == predicate.operator);
     }
 
     public boolean isIncludedInRuleNode(

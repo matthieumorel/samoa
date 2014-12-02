@@ -37,10 +37,11 @@ import com.yahoo.labs.samoa.moa.options.AbstractOptionHandler;
 import com.github.javacliparser.IntOption;
 
 /**
- * Class for observing the class data distribution for a numeric attribute using gaussian estimators.
- * This observer monitors the class distribution of a given attribute.
- * Used in naive Bayes and decision trees to monitor data statistics on leaves.
- *
+ * Class for observing the class data distribution for a numeric attribute using
+ * gaussian estimators. This observer monitors the class distribution of a given
+ * attribute. Used in naive Bayes and decision trees to monitor data statistics
+ * on leaves.
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -60,9 +61,9 @@ public class GaussianNumericAttributeClassObserver extends AbstractOptionHandler
      * @return The requested Estimator if it exists, or null if not present.
      */
     public GaussianEstimator getEstimator(int classVal) {
-    	return this.attValDistPerClass.get(classVal);
+        return this.attValDistPerClass.get(classVal);
     }
-    
+
     public IntOption numBinsOption = new IntOption("numBins", 'n',
             "The number of bins.", 10, 1, Integer.MAX_VALUE);
 
@@ -108,7 +109,7 @@ public class GaussianNumericAttributeClassObserver extends AbstractOptionHandler
             if ((bestSuggestion == null) || (merit > bestSuggestion.merit)) {
                 bestSuggestion = new AttributeSplitSuggestion(
                         new NumericAttributeBinaryTest(attIndex, splitValue,
-                        true), postSplitDists, merit);
+                                true), postSplitDists, merit);
             }
         }
         return bestSuggestion;
@@ -165,7 +166,7 @@ public class GaussianNumericAttributeClassObserver extends AbstractOptionHandler
                 }
             }
         }
-        return new double[][]{lhsDist.getArrayRef(), rhsDist.getArrayRef()};
+        return new double[][] { lhsDist.getArrayRef(), rhsDist.getArrayRef() };
     }
 
     @Override

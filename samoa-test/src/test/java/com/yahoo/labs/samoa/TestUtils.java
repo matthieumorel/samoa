@@ -43,12 +43,13 @@ public class TestUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestUtils.class.getName());
 
-
-    public static void test(final TestParams testParams) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InterruptedException {
+    public static void test(final TestParams testParams) throws IOException, ClassNotFoundException,
+            NoSuchMethodException, InvocationTargetException, IllegalAccessException, InterruptedException {
 
         final File tempFile = File.createTempFile("test", "test");
 
-        LOG.info("Starting test, output file is {}, test config is \n{}", tempFile.getAbsolutePath(), testParams.toString());
+        LOG.info("Starting test, output file is {}, test config is \n{}", tempFile.getAbsolutePath(),
+                testParams.toString());
 
         Executors.newSingleThreadExecutor().submit(new Callable<Void>() {
 
@@ -101,9 +102,12 @@ public class TestUtils {
         CSVRecord header = iterator.next();
         Assert.assertEquals("Invalid number of columns", 5, header.size());
 
-        Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.EVALUATION_INSTANCES, header.get(0).trim());
-        Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.CLASSIFIED_INSTANCES, header.get(1).trim());
-        Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.CLASSIFICATIONS_CORRECT, header.get(2).trim());
+        Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.EVALUATION_INSTANCES, header.get(0)
+                .trim());
+        Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.CLASSIFIED_INSTANCES, header.get(1)
+                .trim());
+        Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.CLASSIFICATIONS_CORRECT, header.get(2)
+                .trim());
         Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.KAPPA_STAT, header.get(3).trim());
         Assert.assertEquals("Unexpected column", com.yahoo.labs.samoa.TestParams.KAPPA_TEMP_STAT, header.get(4).trim());
 
@@ -130,7 +134,6 @@ public class TestUtils {
 
     }
 
-
     private static class TestResultsTailerAdapter extends TailerListenerAdapter {
 
         private final CountDownLatch signalComplete;
@@ -146,8 +149,5 @@ public class TestUtils {
             }
         }
     }
-
-
-
 
 }

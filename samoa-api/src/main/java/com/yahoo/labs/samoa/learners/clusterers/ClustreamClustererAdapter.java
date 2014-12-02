@@ -31,9 +31,9 @@ import com.yahoo.labs.samoa.moa.cluster.Clustering;
 import com.yahoo.labs.samoa.moa.clusterers.clustream.Clustream;
 
 /**
- *
- *  Base class for adapting Clustream clusterer.
- *
+ * 
+ * Base class for adapting Clustream clusterer.
+ * 
  */
 public class ClustreamClustererAdapter implements LocalClustererAdapter, Configurable {
 
@@ -41,19 +41,19 @@ public class ClustreamClustererAdapter implements LocalClustererAdapter, Configu
      *
      */
     private static final long serialVersionUID = 4372366401338704353L;
-    
+
     public ClassOption learnerOption = new ClassOption("learner", 'l',
             "Clusterer to train.", com.yahoo.labs.samoa.moa.clusterers.Clusterer.class, Clustream.class.getName());
     /**
      * The learner.
      */
     protected com.yahoo.labs.samoa.moa.clusterers.Clusterer learner;
-    
+
     /**
      * The is init.
      */
     protected Boolean isInit;
-    
+
     /**
      * The dataset.
      */
@@ -66,9 +66,11 @@ public class ClustreamClustererAdapter implements LocalClustererAdapter, Configu
 
     /**
      * Instantiates a new learner.
-     *
-     * @param learner the learner
-     * @param dataset the dataset
+     * 
+     * @param learner
+     *            the learner
+     * @param dataset
+     *            the dataset
      */
     public ClustreamClustererAdapter(com.yahoo.labs.samoa.moa.clusterers.Clusterer learner, Instances dataset) {
         this.learner = learner.copy();
@@ -78,19 +80,21 @@ public class ClustreamClustererAdapter implements LocalClustererAdapter, Configu
 
     /**
      * Instantiates a new learner.
-     *
-     * @param learner the learner
-     * @param dataset the dataset
+     * 
+     * @param learner
+     *            the learner
+     * @param dataset
+     *            the dataset
      */
     public ClustreamClustererAdapter() {
         this.learner = ((com.yahoo.labs.samoa.moa.clusterers.Clusterer) this.learnerOption.getValue()).copy();
         this.isInit = false;
-        //this.dataset = dataset;
+        // this.dataset = dataset;
     }
 
     /**
      * Creates a new learner object.
-     *
+     * 
      * @return the learner
      */
     @Override
@@ -104,8 +108,9 @@ public class ClustreamClustererAdapter implements LocalClustererAdapter, Configu
 
     /**
      * Trains this classifier incrementally using the given instance.
-     *
-     * @param inst the instance to be used for training
+     * 
+     * @param inst
+     *            the instance to be used for training
      */
     @Override
     public void trainOnInstance(Instance inst) {
@@ -124,17 +129,18 @@ public class ClustreamClustererAdapter implements LocalClustererAdapter, Configu
     /**
      * Predicts the class memberships for a given instance. If an instance is
      * unclassified, the returned array elements must be all zero.
-     *
-     * @param inst the instance to be classified
+     * 
+     * @param inst
+     *            the instance to be classified
      * @return an array containing the estimated membership probabilities of the
-     * test instance in each class
+     *         test instance in each class
      */
     @Override
     public double[] getVotesForInstance(Instance inst) {
         double[] ret;
         inst.setDataset(dataset);
         if (this.isInit == false) {
-           ret = new double[dataset.numClasses()];
+            ret = new double[dataset.numClasses()];
         } else {
             ret = learner.getVotesForInstance(inst);
         }
@@ -144,7 +150,7 @@ public class ClustreamClustererAdapter implements LocalClustererAdapter, Configu
     /**
      * Resets this classifier. It must be similar to starting a new classifier
      * from scratch.
-     *
+     * 
      */
     @Override
     public void resetLearning() {

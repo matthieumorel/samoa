@@ -24,7 +24,7 @@ import java.text.DecimalFormat;
 
 /**
  * Class implementing some string utility methods.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

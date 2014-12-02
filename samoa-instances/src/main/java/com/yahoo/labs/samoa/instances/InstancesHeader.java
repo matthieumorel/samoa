@@ -20,10 +20,10 @@ package com.yahoo.labs.samoa.instances;
  * #L%
  */
 
-
 /**
- * Class for storing the header or context of a data stream. It allows to know the number of attributes and classes.
- *
+ * Class for storing the header or context of a data stream. It allows to know
+ * the number of attributes and classes.
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -38,16 +38,14 @@ public class InstancesHeader extends Instances {
     public InstancesHeader() {
         super();
     }
-    
-   /* @Override
-    public boolean add(Instance i) {
-        throw new UnsupportedOperationException();
-    }
 
-    @Override
-    public boolean readInstance(Reader r) throws IOException {
-        throw new UnsupportedOperationException();
-    }*/
+    /*
+     * @Override public boolean add(Instance i) { throw new
+     * UnsupportedOperationException(); }
+     * 
+     * @Override public boolean readInstance(Reader r) throws IOException {
+     * throw new UnsupportedOperationException(); }
+     */
 
     public static String getClassNameString(InstancesHeader context) {
         if (context == null) {
@@ -110,22 +108,17 @@ public class InstancesHeader extends Instances {
         return Double.toString(value);
     }
 
-    
-    //add autom.
-   /* public int classIndex() {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public int numAttributes() {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public Attribute attribute(int nPos) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-    
-    public int numClasses() {
-        return 0;
-    }*/
+    // add autom.
+    /*
+     * public int classIndex() { throw new
+     * UnsupportedOperationException("Not yet implemented"); }
+     * 
+     * public int numAttributes() { throw new
+     * UnsupportedOperationException("Not yet implemented"); }
+     * 
+     * @Override public Attribute attribute(int nPos) { throw new
+     * UnsupportedOperationException("Not yet implemented"); }
+     * 
+     * public int numClasses() { return 0; }
+     */
 }

@@ -26,60 +26,61 @@ import java.util.Set;
 /**
  * Topology abstract class.
  * 
- * It manages basic information of a topology: name, sets of Streams and ProcessingItems
+ * It manages basic information of a topology: name, sets of Streams and
+ * ProcessingItems
  * 
  */
 public abstract class AbstractTopology implements Topology {
 
-	private String topoName;
+    private String topoName;
     private Set<Stream> streams;
     private Set<IProcessingItem> processingItems;
     private Set<EntranceProcessingItem> entranceProcessingItems;
 
     protected AbstractTopology(String name) {
-    	this.topoName = name;
-    	this.streams = new HashSet<Stream>();
+        this.topoName = name;
+        this.streams = new HashSet<Stream>();
         this.processingItems = new HashSet<IProcessingItem>();
         this.entranceProcessingItems = new HashSet<EntranceProcessingItem>();
     }
-    
+
     /**
      * Gets the name of this topology
      * 
      * @return name of the topology
      */
     public String getTopologyName() {
-    	return this.topoName;
+        return this.topoName;
     }
-    
+
     /**
      * Sets the name of this topology
      * 
      * @param topologyName
-     * 			name of the topology
+     *            name of the topology
      */
     public void setTopologyName(String topologyName) {
-    	this.topoName = topologyName;
+        this.topoName = topologyName;
     }
-    
+
     /**
      * Adds an Entrance processing item to the topology.
      * 
      * @param epi
-     * 			Entrance processing item
+     *            Entrance processing item
      */
     public void addEntranceProcessingItem(EntranceProcessingItem epi) {
-    	this.entranceProcessingItems.add(epi);
-    	this.addProcessingItem(epi);
+        this.entranceProcessingItems.add(epi);
+        this.addProcessingItem(epi);
     }
-    
+
     /**
      * Gets entrance processing items in the topology
      * 
      * @return the set of processing items
      */
     public Set<EntranceProcessingItem> getEntranceProcessingItems() {
-    	return this.entranceProcessingItems;
+        return this.entranceProcessingItems;
     }
 
     /**
@@ -103,14 +104,15 @@ public abstract class AbstractTopology implements Topology {
     public void addProcessingItem(IProcessingItem procItem, int parallelismHint) {
         this.processingItems.add(procItem);
     }
-    
+
     /**
-     * Gets processing items in the topology (including entrance processing items)
+     * Gets processing items in the topology (including entrance processing
+     * items)
      * 
      * @return the set of processing items
      */
     public Set<IProcessingItem> getProcessingItems() {
-    	return this.processingItems;
+        return this.processingItems;
     }
 
     /**
@@ -121,13 +123,13 @@ public abstract class AbstractTopology implements Topology {
     public void addStream(Stream stream) {
         this.streams.add(stream);
     }
-    
+
     /**
      * Gets streams in the topology
      * 
      * @return the set of streams
      */
     public Set<Stream> getStreams() {
-    	return this.streams;
-    } 
+        return this.streams;
+    }
 }

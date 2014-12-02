@@ -37,10 +37,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-
 /**
  * Stream reader of ARFF files.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -74,7 +73,7 @@ public class ArffFileStream extends AbstractOptionHandler implements
     protected int numInstancesRead;
 
     transient protected InputStreamProgressMonitor fileProgressMonitor;
-    
+
     protected boolean hasStarted;
 
     public ArffFileStream() {
@@ -90,7 +89,7 @@ public class ArffFileStream extends AbstractOptionHandler implements
     @Override
     public void prepareForUseImpl(TaskMonitor monitor,
             ObjectRepository repository) {
-        //restart();
+        // restart();
         this.hasStarted = false;
         this.lastInstanceRead = null;
     }
@@ -133,7 +132,7 @@ public class ArffFileStream extends AbstractOptionHandler implements
     public void restart() {
         try {
             reset();
-            //this.hitEndOfFile = !readNextInstanceFromFile();
+            // this.hitEndOfFile = !readNextInstanceFromFile();
         } catch (IOException ioe) {
             throw new RuntimeException("ArffFileStream restart failed.", ioe);
         }
@@ -141,7 +140,7 @@ public class ArffFileStream extends AbstractOptionHandler implements
 
     protected boolean readNextInstanceFromFile() {
         boolean ret = false;
-        if (this.hasStarted == false){
+        if (this.hasStarted == false) {
             try {
                 reset();
                 ret = getNextInstanceFromFile();

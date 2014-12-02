@@ -26,37 +26,39 @@ import com.yahoo.labs.samoa.utils.PartitioningScheme;
 /**
  * Abstract Stream
  * 
- * Helper for implementation of Stream. It has basic information
- * for a Stream: streamID and source ProcessingItem.
- * Subclass of this class needs to implement {@link #put(ContentEvent)}.
+ * Helper for implementation of Stream. It has basic information for a Stream:
+ * streamID and source ProcessingItem. Subclass of this class needs to implement
+ * {@link #put(ContentEvent)}.
  * 
  * @author Anh Thu Vu
- *
+ * 
  */
 
 public abstract class AbstractStream implements Stream {
-	private String streamID;
-	private IProcessingItem sourcePi;
-	private int batchSize;
- 
-	/*
-	 * Constructor
-	 */
-	public AbstractStream() {
-		this(null);
-	}
-	public AbstractStream(IProcessingItem sourcePi) {
-		this.sourcePi = sourcePi;
-		this.batchSize = 1;
-	}
-	
-	/**
-	 * Get source processing item of this stream
-	 * @return
-	 */
-	public IProcessingItem getSourceProcessingItem() {
-		return this.sourcePi;
-	}
+    private String streamID;
+    private IProcessingItem sourcePi;
+    private int batchSize;
+
+    /*
+     * Constructor
+     */
+    public AbstractStream() {
+        this(null);
+    }
+
+    public AbstractStream(IProcessingItem sourcePi) {
+        this.sourcePi = sourcePi;
+        this.batchSize = 1;
+    }
+
+    /**
+     * Get source processing item of this stream
+     * 
+     * @return
+     */
+    public IProcessingItem getSourceProcessingItem() {
+        return this.sourcePi;
+    }
 
     /*
      * Process event
@@ -74,43 +76,45 @@ public abstract class AbstractStream implements Stream {
      */
     /**
      * Get name (ID) of this stream
+     * 
      * @return the name (ID)
      */
     @Override
     public String getStreamId() {
-    	return this.streamID;
+        return this.streamID;
     }
-    
+
     /**
      * Set the name (ID) of this stream
+     * 
      * @param name
-     * 			the name (ID)
+     *            the name (ID)
      */
-    public void setStreamId (String streamID) {
-    	this.streamID = streamID;
+    public void setStreamId(String streamID) {
+        this.streamID = streamID;
     }
-  
+
     /*
      * Batch size
      */
     /**
      * Set suggested batch size
-     *
+     * 
      * @param batchSize
-     * the suggested batch size
-     *
+     *            the suggested batch size
+     * 
      */
     @Override
     public void setBatchSize(int batchSize) {
-    	this.batchSize = batchSize;
+        this.batchSize = batchSize;
     }
 
     /**
      * Get suggested batch size
-     *
+     * 
      * @return the suggested batch size
      */
     public int getBatchSize() {
-    	return this.batchSize;
+        return this.batchSize;
     }
 }

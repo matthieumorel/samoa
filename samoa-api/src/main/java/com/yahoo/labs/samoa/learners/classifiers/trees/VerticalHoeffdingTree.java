@@ -42,13 +42,13 @@ import com.yahoo.labs.samoa.topology.TopologyBuilder;
 
 /**
  * Vertical Hoeffding Tree.
- *
+ * 
  * Vertical Hoeffding Tree (VHT) classifier is a distributed classifier that
  * utilizes vertical parallelism on top of Very Fast Decision Tree (VFDT)
  * classifier.
- *
+ * 
  * @author Arinto Murdopo
- *
+ * 
  */
 public final class VerticalHoeffdingTree implements ClassificationLearner, AdaptiveLearner, Configurable {
 
@@ -97,12 +97,14 @@ public final class VerticalHoeffdingTree implements ClassificationLearner, Adapt
     public FlagOption binarySplitsOption = new FlagOption("binarySplits", 'b',
             "Only allow binary splits.");
 
-    //TODO: (possible)
-    //1. memoryEstimatedOption => for estimating model sizes
-    //2. binarySplitsOption => for getting the best split suggestion, must be set in LocalStatisticsProcessor
-    //3. stopMemManagementOption => for enforcing tracker limit, no tracker limit enforcement atm
-    //4. removePoorAttsOption => no poor attributes remove at the moment
-    //5. noPrePruneOption => always add null split as an option now
+    // TODO: (possible)
+    // 1. memoryEstimatedOption => for estimating model sizes
+    // 2. binarySplitsOption => for getting the best split suggestion, must be
+    // set in LocalStatisticsProcessor
+    // 3. stopMemManagementOption => for enforcing tracker limit, no tracker
+    // limit enforcement atm
+    // 4. removePoorAttsOption => no poor attributes remove at the moment
+    // 5. noPrePruneOption => always add null split as an option now
     private ModelAggregatorProcessor modelAggrProc;
 
     private Stream resultStream;
@@ -114,25 +116,24 @@ public final class VerticalHoeffdingTree implements ClassificationLearner, Adapt
     private LocalStatisticsProcessor locStatProc;
 
     private FilterProcessor filterProc;
-    
+
     private Stream filterStream;
-    
+
     private Stream computeStream;
-    
+
     private int parallelism;
 
     @Override
     public void init(TopologyBuilder topologyBuilder, Instances dataset, int parallelism) {
         this.parallelism = parallelism;
-        
+
         this.filterProc = new FilterProcessor.Builder(dataset)
                 .build();
         topologyBuilder.addProcessor(filterProc, parallelism);
-        
+
         this.filterStream = topologyBuilder.createStream(filterProc);
         this.filterProc.setOutputStream(this.filterStream);
-         
- 
+
         this.modelAggrProc = new ModelAggregatorProcessor.Builder(dataset)
                 .splitCriterion((SplitCriterion) this.splitCriterionOption.getValue())
                 .splitConfidence(splitConfidenceOption.getValue())
@@ -142,11 +143,11 @@ public final class VerticalHoeffdingTree implements ClassificationLearner, Adapt
                 .timeOut(timeOutOption.getValue())
                 .changeDetector(this.getChangeDetector())
                 .build();
-        
+
         topologyBuilder.addProcessor(modelAggrProc, parallelism);
 
         topologyBuilder.connectInputShuffleStream(this.filterStream, modelAggrProc);
-     
+
         this.resultStream = topologyBuilder.createStream(modelAggrProc);
         this.modelAggrProc.setResultStream(resultStream);
 
@@ -175,22 +176,22 @@ public final class VerticalHoeffdingTree implements ClassificationLearner, Adapt
 
     @Override
     public Processor getInputProcessor() {
-        return this.filterProc; 
-    }
-    
-    @Override
-    public Set<Stream> getResultStreams() {
-    	Set<Stream> streams = ImmutableSet.of(this.resultStream);
-		return streams;
+        return this.filterProc;
     }
 
-    protected ChangeDetector changeDetector;    
-        
+    @Override
+    public Set<Stream> getResultStreams() {
+        Set<Stream> streams = ImmutableSet.of(this.resultStream);
+        return streams;
+    }
+
+    protected ChangeDetector changeDetector;
+
     @Override
     public ChangeDetector getChangeDetector() {
         return this.changeDetector;
     }
-    
+
     @Override
     public void setChangeDetector(ChangeDetector cd) {
         this.changeDetector = cd;
@@ -198,7 +199,7 @@ public final class VerticalHoeffdingTree implements ClassificationLearner, Adapt
 
     static class LearningNodeIdGenerator {
 
-        //TODO: add code to warn user of when value reaches Long.MAX_VALUES
+        // TODO: add code to warn user of when value reaches Long.MAX_VALUES
         private static long id = 0;
 
         static synchronized long generate() {

@@ -24,7 +24,7 @@ import com.yahoo.labs.samoa.moa.AbstractMOAObject;
 
 /**
  * Vector of double numbers with some utilities.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

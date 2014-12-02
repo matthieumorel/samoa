@@ -26,11 +26,10 @@ import com.yahoo.labs.samoa.moa.options.AbstractOptionHandler;
 import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
- * Class for computing splitting criteria using Gini
- * with respect to distributions of class values.
- * The split criterion is used as a parameter on
+ * Class for computing splitting criteria using Gini with respect to
+ * distributions of class values. The split criterion is used as a parameter on
  * decision trees and decision stumps.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

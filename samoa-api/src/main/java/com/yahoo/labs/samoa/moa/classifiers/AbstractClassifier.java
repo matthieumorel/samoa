@@ -1,4 +1,3 @@
-
 package com.yahoo.labs.samoa.moa.classifiers;
 
 /*
@@ -41,7 +40,7 @@ import com.yahoo.labs.samoa.instances.Instances;
 import com.yahoo.labs.samoa.moa.core.Utils;
 
 public abstract class AbstractClassifier extends AbstractOptionHandler
-        implements Classifier { //Learner<Example<Instance>> {
+        implements Classifier { // Learner<Example<Instance>> {
 
     @Override
     public String getPurposeString() {
@@ -60,12 +59,12 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
     /** Option for randomizable learners to change the random seed */
     protected IntOption randomSeedOption;
 
-    /** Random Generator used in randomizable learners  */
+    /** Random Generator used in randomizable learners */
     public Random classifierRandom;
 
     /**
-     * Creates an classifier and setups the random seed option
-     * if the classifier is randomizable.
+     * Creates an classifier and setups the random seed option if the classifier
+     * is randomizable.
      */
     public AbstractClassifier() {
         if (isRandomizable()) {
@@ -85,11 +84,10 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
         }
     }
 
-	
     @Override
-    public double[] getVotesForInstance(Example<Instance> example){
-		return getVotesForInstance(example.getData());
-	}
+    public double[] getVotesForInstance(Example<Instance> example) {
+        return getVotesForInstance(example.getData());
+    }
 
     @Override
     public abstract double[] getVotesForInstance(Instance inst);
@@ -170,7 +168,8 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
                     subMeasurements.add(subModel.getModelMeasurements());
                 }
             }
-            Measurement[] avgMeasurements = Measurement.averageMeasurements(subMeasurements.toArray(new Measurement[subMeasurements.size()][]));
+            Measurement[] avgMeasurements = Measurement.averageMeasurements(subMeasurements
+                    .toArray(new Measurement[subMeasurements.size()][]));
             measurementList.addAll(Arrays.asList(avgMeasurements));
         }
         return measurementList.toArray(new Measurement[measurementList.size()]);
@@ -197,29 +196,26 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
     public Learner[] getSublearners() {
         return null;
     }
-    
-    
+
     @Override
     public Classifier[] getSubClassifiers() {
         return null;
     }
-    
-    
+
     @Override
     public Classifier copy() {
         return (Classifier) super.copy();
     }
 
-   
     @Override
-    public MOAObject getModel(){
+    public MOAObject getModel() {
         return this;
     };
-    
+
     @Override
-    public void trainOnInstance(Example<Instance> example){
-		trainOnInstance(example.getData());
-	}
+    public void trainOnInstance(Example<Instance> example) {
+        trainOnInstance(example.getData());
+    }
 
     @Override
     public boolean correctlyClassifies(Instance inst) {
@@ -228,7 +224,7 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
 
     /**
      * Gets the name of the attribute of the class from the header.
-     *
+     * 
      * @return the string with name of the attribute of the class
      */
     public String getClassNameString() {
@@ -237,8 +233,9 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
 
     /**
      * Gets the name of a label of the class from the header.
-     *
-     * @param classLabelIndex the label index
+     * 
+     * @param classLabelIndex
+     *            the label index
      * @return the name of the label of the class
      */
     public String getClassLabelString(int classLabelIndex) {
@@ -248,8 +245,9 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
 
     /**
      * Gets the name of an attribute from the header.
-     *
-     * @param attIndex the attribute index
+     * 
+     * @param attIndex
+     *            the attribute index
      * @return the name of the attribute
      */
     public String getAttributeNameString(int attIndex) {
@@ -259,9 +257,11 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
 
     /**
      * Gets the name of a value of an attribute from the header.
-     *
-     * @param attIndex the attribute index
-     * @param valIndex the value of the attribute
+     * 
+     * @param attIndex
+     *            the attribute index
+     * @param valIndex
+     *            the value of the attribute
      * @return the name of the value of the attribute
      */
     public String getNominalValueString(int attIndex, int valIndex) {
@@ -269,22 +269,25 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
                 attIndex, valIndex);
     }
 
-
     /**
-     * Returns if two contexts or headers of instances are compatible.<br><br>
-     *
+     * Returns if two contexts or headers of instances are compatible.<br>
+     * <br>
+     * 
      * Two contexts are compatible if they follow the following rules:<br>
      * Rule 1: num classes can increase but never decrease<br>
      * Rule 2: num attributes can increase but never decrease<br>
      * Rule 3: num nominal attribute values can increase but never decrease<br>
-     * Rule 4: attribute types must stay in the same order (although class
-     * can move; is always skipped over)<br><br>
-     *
-     * Attribute names are free to change, but should always still represent
-     * the original attributes.
-     *
-     * @param originalContext the first context to compare
-     * @param newContext the second context to compare
+     * Rule 4: attribute types must stay in the same order (although class can
+     * move; is always skipped over)<br>
+     * <br>
+     * 
+     * Attribute names are free to change, but should always still represent the
+     * original attributes.
+     * 
+     * @param originalContext
+     *            the first context to compare
+     * @param newContext
+     *            the second context to compare
      * @return true if the two contexts are compatible.
      */
     public static boolean contextIsCompatible(InstancesHeader originalContext,
@@ -327,71 +330,79 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
         return true; // all checks clear
     }
 
-
-
     /**
-     * Resets this classifier. It must be similar to
-     * starting a new classifier from scratch. <br><br>
+     * Resets this classifier. It must be similar to starting a new classifier
+     * from scratch. <br>
+     * <br>
      * 
-     * The reason for ...Impl methods: ease programmer burden by not requiring 
-     * them to remember calls to super in overridden methods. 
-     * Note that this will produce compiler errors if not overridden.
+     * The reason for ...Impl methods: ease programmer burden by not requiring
+     * them to remember calls to super in overridden methods. Note that this
+     * will produce compiler errors if not overridden.
      */
     public abstract void resetLearningImpl();
 
     /**
-     * Trains this classifier incrementally using the given instance.<br><br>
+     * Trains this classifier incrementally using the given instance.<br>
+     * <br>
      * 
-     * The reason for ...Impl methods: ease programmer burden by not requiring 
-     * them to remember calls to super in overridden methods. 
-     * Note that this will produce compiler errors if not overridden.
-     *
-     * @param inst the instance to be used for training
+     * The reason for ...Impl methods: ease programmer burden by not requiring
+     * them to remember calls to super in overridden methods. Note that this
+     * will produce compiler errors if not overridden.
+     * 
+     * @param inst
+     *            the instance to be used for training
      */
     public abstract void trainOnInstanceImpl(Instance inst);
 
     /**
-     * Gets the current measurements of this classifier.<br><br>
+     * Gets the current measurements of this classifier.<br>
+     * <br>
      * 
-     * The reason for ...Impl methods: ease programmer burden by not requiring 
-     * them to remember calls to super in overridden methods. 
-     * Note that this will produce compiler errors if not overridden.
-     *
+     * The reason for ...Impl methods: ease programmer burden by not requiring
+     * them to remember calls to super in overridden methods. Note that this
+     * will produce compiler errors if not overridden.
+     * 
      * @return an array of measurements to be used in evaluation tasks
      */
     protected abstract Measurement[] getModelMeasurementsImpl();
 
     /**
      * Returns a string representation of the model.
-     *
-     * @param out	the stringbuilder to add the description
-     * @param indent	the number of characters to indent
+     * 
+     * @param out
+     *            the stringbuilder to add the description
+     * @param indent
+     *            the number of characters to indent
      */
     public abstract void getModelDescription(StringBuilder out, int indent);
 
     /**
-     * Gets the index of the attribute in the instance,
-     * given the index of the attribute in the learner.
-     *
-     * @param index the index of the attribute in the learner
-     * @param inst the instance
+     * Gets the index of the attribute in the instance, given the index of the
+     * attribute in the learner.
+     * 
+     * @param index
+     *            the index of the attribute in the learner
+     * @param inst
+     *            the instance
      * @return the index in the instance
      */
     protected static int modelAttIndexToInstanceAttIndex(int index,
             Instance inst) {
-        return index; //inst.classIndex() > index ? index : index + 1;
+        return index; // inst.classIndex() > index ? index : index + 1;
     }
 
     /**
-     * Gets the index of the attribute in a set of instances,
-     * given the index of the attribute in the learner.
+     * Gets the index of the attribute in a set of instances, given the index of
+     * the attribute in the learner.
      * 
-     * @param index the index of the attribute in the learner
-     * @param insts the instances
+     * @param index
+     *            the index of the attribute in the learner
+     * @param insts
+     *            the instances
      * @return the index of the attribute in the instances
      */
     protected static int modelAttIndexToInstanceAttIndex(int index,
             Instances insts) {
-        return index; //insts.classIndex() > index ? index : index + 1;
+        return index; // insts.classIndex() > index ? index : index + 1;
     }
 }

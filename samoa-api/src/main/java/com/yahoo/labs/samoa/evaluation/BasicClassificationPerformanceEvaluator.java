@@ -76,16 +76,16 @@ public class BasicClassificationPerformanceEvaluator extends AbstractMOAObject i
         int trueClass = (int) inst.classValue();
         if (weight > 0.0) {
             if (this.weightObserved == 0) {
-                reset(inst.numClasses()); 
+                reset(inst.numClasses());
             }
             this.weightObserved += weight;
             int predictedClass = Utils.maxIndex(classVotes);
             if (predictedClass == trueClass) {
                 this.weightCorrect += weight;
             }
-            if(rowKappa.length > 0){
-            	this.rowKappa[predictedClass] += weight;
-            }       
+            if (rowKappa.length > 0) {
+                this.rowKappa[predictedClass] += weight;
+            }
             if (columnKappa.length > 0) {
                 this.columnKappa[trueClass] += weight;
             }
@@ -98,15 +98,15 @@ public class BasicClassificationPerformanceEvaluator extends AbstractMOAObject i
 
     @Override
     public Measurement[] getPerformanceMeasurements() {
-        return new Measurement[]{
-            new Measurement("classified instances",
-            getTotalWeightObserved()),
-            new Measurement("classifications correct (percent)",
-            getFractionCorrectlyClassified() * 100.0),
-            new Measurement("Kappa Statistic (percent)",
-            getKappaStatistic() * 100.0),
-            new Measurement("Kappa Temporal Statistic (percent)",
-            getKappaTemporalStatistic() * 100.0)
+        return new Measurement[] {
+                new Measurement("classified instances",
+                        getTotalWeightObserved()),
+                new Measurement("classifications correct (percent)",
+                        getFractionCorrectlyClassified() * 100.0),
+                new Measurement("Kappa Statistic (percent)",
+                        getKappaStatistic() * 100.0),
+                new Measurement("Kappa Temporal Statistic (percent)",
+                        getKappaTemporalStatistic() * 100.0)
         };
 
     }

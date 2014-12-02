@@ -3,14 +3,15 @@ package com.yahoo.labs.samoa;
 public class TestParams {
 
     /**
-     *  templates that take the following parameters:
-     *  <ul>
-     *      <li>the output file location as an argument (-d),
-     *      <li>the maximum number of instances for testing/training (-i)
-     *      <li>the sampling size (-f)
-     *      <li>the delay in ms between input instances (-w) , default is zero
-     *  </ul>
-     *  as well as the maximum number of instances for testing/training (-i) and the sampling size (-f)
+     * templates that take the following parameters:
+     * <ul>
+     * <li>the output file location as an argument (-d),
+     * <li>the maximum number of instances for testing/training (-i)
+     * <li>the sampling size (-f)
+     * <li>the delay in ms between input instances (-w) , default is zero
+     * </ul>
+     * as well as the maximum number of instances for testing/training (-i) and
+     * the sampling size (-f)
      */
     public static class Templates {
 
@@ -22,7 +23,8 @@ public class TestParams {
                 + "-l (classifiers.SingleClassifier -l com.yahoo.labs.samoa.learners.classifiers.NaiveBayes) " +
                 "-s (com.yahoo.labs.samoa.moa.streams.generators.HyperplaneGenerator -c 2)";
 
-        // setting the number of nominal attributes to zero significantly reduces the processing time,
+        // setting the number of nominal attributes to zero significantly
+        // reduces the processing time,
         // so that it's acceptable in a test case
         public final static String PREQEVAL_BAGGING_RANDOMTREE = "PrequentialEvaluation -d %s -i %d -f %d -w %d "
                 + "-l (com.yahoo.labs.samoa.learners.classifiers.ensemble.Bagging) " +
@@ -30,13 +32,11 @@ public class TestParams {
 
     }
 
-
     public static final String EVALUATION_INSTANCES = "evaluation instances";
     public static final String CLASSIFIED_INSTANCES = "classified instances";
     public static final String CLASSIFICATIONS_CORRECT = "classifications correct (percent)";
     public static final String KAPPA_STAT = "Kappa Statistic (percent)";
     public static final String KAPPA_TEMP_STAT = "Kappa Temporal Statistic (percent)";
-
 
     private long inputInstances;
     private long samplingSize;
@@ -52,17 +52,17 @@ public class TestParams {
     private String taskClassName;
 
     private TestParams(String taskClassName,
-                       long inputInstances,
-                       long samplingSize,
-                       long evaluationInstances,
-                       long classifiedInstances,
-                       float classificationsCorrect,
-                       float kappaStat,
-                       float kappaTempStat,
-                       String cliStringTemplate,
-                       int pollTimeoutSeconds,
-                       int prePollWait,
-                       int inputDelayMicroSec) {
+            long inputInstances,
+            long samplingSize,
+            long evaluationInstances,
+            long classifiedInstances,
+            float classificationsCorrect,
+            float kappaStat,
+            float kappaTempStat,
+            String cliStringTemplate,
+            int pollTimeoutSeconds,
+            int prePollWait,
+            int inputDelayMicroSec) {
         this.taskClassName = taskClassName;
         this.inputInstances = inputInstances;
         this.samplingSize = samplingSize;
@@ -149,8 +149,8 @@ public class TestParams {
         private long evaluationInstances;
         private long classifiedInstances;
         private float classificationsCorrect;
-        private float kappaStat =0f;
-        private float kappaTempStat =0f;
+        private float kappaStat = 0f;
+        private float kappaTempStat = 0f;
         private String cliStringTemplate;
         private int pollTimeoutSeconds = 10;
         private int prePollWaitSeconds = 10;

@@ -22,7 +22,7 @@ package com.yahoo.labs.samoa.moa.tasks;
 
 /**
  * Class that represents a null monitor.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

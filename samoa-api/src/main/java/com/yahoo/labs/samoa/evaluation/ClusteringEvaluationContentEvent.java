@@ -48,10 +48,13 @@ final public class ClusteringEvaluationContentEvent implements ContentEvent {
 
     /**
      * Instantiates a new gtClustering result event.
-     *
-     * @param clustering the gtClustering result
-     * @param instance data point
-     * @param isLast is the last result
+     * 
+     * @param clustering
+     *            the gtClustering result
+     * @param instance
+     *            data point
+     * @param isLast
+     *            is the last result
      */
     public ClusteringEvaluationContentEvent(Clustering clustering, DataPoint instance, boolean isLast) {
         this.gtClustering = clustering;
@@ -74,9 +77,9 @@ final public class ClusteringEvaluationContentEvent implements ContentEvent {
     Clustering getGTClustering() {
         return this.gtClustering;
     }
-    
+
     DataPoint getDataPoint() {
         return this.dataPoint;
     }
-    
+
 }

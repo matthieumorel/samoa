@@ -31,10 +31,10 @@ import java.io.Serializable;
  * @author abifet
  */
 public interface LocalClustererAdapter extends Serializable {
-    
+
     /**
      * Creates a new learner object.
-     *
+     * 
      * @return the learner
      */
     LocalClustererAdapter create();
@@ -42,7 +42,7 @@ public interface LocalClustererAdapter extends Serializable {
     /**
      * Predicts the class memberships for a given instance. If an instance is
      * unclassified, the returned array elements must be all zero.
-     *
+     * 
      * @param inst
      *            the instance to be classified
      * @return an array containing the estimated membership probabilities of the
@@ -53,30 +53,30 @@ public interface LocalClustererAdapter extends Serializable {
     /**
      * Resets this classifier. It must be similar to starting a new classifier
      * from scratch.
-     *
+     * 
      */
     void resetLearning();
 
     /**
      * Trains this classifier incrementally using the given instance.
-     *
+     * 
      * @param inst
      *            the instance to be used for training
      */
     void trainOnInstance(Instance inst);
-    
-     /**
+
+    /**
      * Sets where to obtain the information of attributes of Instances
-     *
+     * 
      * @param dataset
      *            the dataset that contains the information
      */
     public void setDataset(Instances dataset);
-    
+
     public Instances getDataset();
 
-    public boolean implementsMicroClusterer();    
+    public boolean implementsMicroClusterer();
 
     public Clustering getMicroClusteringResult();
-    
+
 }

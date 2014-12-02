@@ -27,7 +27,7 @@ import com.yahoo.labs.samoa.moa.AbstractMOAObject;
 
 /**
  * Class for storing an evaluation measurement.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -100,7 +100,7 @@ public class Measurement extends AbstractMOAObject {
                         mEstimator.getMean()));
                 averagedMeasurements.add(new Measurement("[err] " + mName,
                         mEstimator.getStdDev()
-                        / Math.sqrt(mEstimator.getTotalWeightObserved())));
+                                / Math.sqrt(mEstimator.getTotalWeightObserved())));
             }
         }
         return averagedMeasurements.toArray(new Measurement[averagedMeasurements.size()]);

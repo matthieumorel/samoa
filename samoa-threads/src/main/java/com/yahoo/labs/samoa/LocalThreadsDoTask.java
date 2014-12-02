@@ -13,7 +13,7 @@ import com.yahoo.labs.samoa.topology.impl.ThreadsEngine;
 
 /**
  * @author Anh Thu Vu
- *
+ * 
  */
 public class LocalThreadsDoTask {
     private static final Logger logger = LoggerFactory.getLogger(LocalThreadsDoTask.class);
@@ -27,23 +27,23 @@ public class LocalThreadsDoTask {
     public static void main(String[] args) {
 
         ArrayList<String> tmpArgs = new ArrayList<String>(Arrays.asList(args));
-        
+
         // Get number of threads for multithreading mode
         int numThreads = 1;
-        for (int i=0; i<tmpArgs.size()-1; i++) {
-        	if (tmpArgs.get(i).equals("-t")) {
-        		try {
-        			numThreads = Integer.parseInt(tmpArgs.get(i+1));
-        			tmpArgs.remove(i+1);
-        			tmpArgs.remove(i);
-        		} catch (NumberFormatException e) {
-        			System.err.println("Invalid number of threads.");
-        			System.err.println(e.getStackTrace());
-        		}
-        	}
+        for (int i = 0; i < tmpArgs.size() - 1; i++) {
+            if (tmpArgs.get(i).equals("-t")) {
+                try {
+                    numThreads = Integer.parseInt(tmpArgs.get(i + 1));
+                    tmpArgs.remove(i + 1);
+                    tmpArgs.remove(i);
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid number of threads.");
+                    System.err.println(e.getStackTrace());
+                }
+            }
         }
         logger.info("Number of threads:{}", numThreads);
-        
+
         args = tmpArgs.toArray(new String[0]);
 
         StringBuilder cliString = new StringBuilder();
@@ -64,7 +64,7 @@ public class LocalThreadsDoTask {
         }
         task.setFactory(new ThreadsComponentFactory());
         task.init();
-        
+
         ThreadsEngine.submitTopology(task.getTopology(), numThreads);
     }
 }

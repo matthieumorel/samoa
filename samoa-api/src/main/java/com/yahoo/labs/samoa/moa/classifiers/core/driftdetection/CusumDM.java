@@ -27,8 +27,8 @@ import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
  * Drift detection method based in Cusum
- *
- *
+ * 
+ * 
  * @author Manuel Baena (mbaena@lcc.uma.es)
  * @version $Revision: 7 $
  */
@@ -83,9 +83,6 @@ public class CusumDM extends AbstractChangeDetector {
         x_mean = x_mean + (x - x_mean) / (double) m_n;
         sum = Math.max(0, sum + x - x_mean - this.delta);
 
-        
-
-
         m_n++;
 
         // System.out.print(prediction + " " + m_n + " " + (m_p+m_s) + " ");
@@ -100,7 +97,7 @@ public class CusumDM extends AbstractChangeDetector {
 
         if (sum > this.lambda) {
             this.isChangeDetected = true;
-        } 
+        }
     }
 
     @Override

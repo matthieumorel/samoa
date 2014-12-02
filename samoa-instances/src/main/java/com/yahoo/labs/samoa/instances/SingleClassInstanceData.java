@@ -25,13 +25,13 @@ package com.yahoo.labs.samoa.instances;
  */
 
 /**
- *
+ * 
  * @author abifet
  */
 public class SingleClassInstanceData implements InstanceData {
 
     protected double classValue;
-    
+
     @Override
     public int numAttributes() {
         return 1;
@@ -67,14 +67,14 @@ public class SingleClassInstanceData implements InstanceData {
         return Double.isNaN(this.value(indexAttribute));
     }
 
-    /*@Override
-    public double value(Attribute attribute) {
-        return this.classValue;
-    }*/
+    /*
+     * @Override public double value(Attribute attribute) { return
+     * this.classValue; }
+     */
 
     @Override
     public double[] toDoubleArray() {
-        double[] array = {this.classValue};
+        double[] array = { this.classValue };
         return array;
     }
 
@@ -82,5 +82,5 @@ public class SingleClassInstanceData implements InstanceData {
     public void setValue(int m_numAttributes, double d) {
         this.classValue = d;
     }
-    
+
 }

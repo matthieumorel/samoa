@@ -28,42 +28,40 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
+ * 
  * @author abifet
  */
-public class InstanceInformation implements Serializable{
-    
-    //Should we split Instances as a List of Instances, and InformationInstances
-    
-  /** The dataset's name. */
-  protected String relationName;         
+public class InstanceInformation implements Serializable {
 
-  /** The attribute information. */
-  protected List<Attribute> attributes;
-  
-  protected int classIndex;
-  
+    // Should we split Instances as a List of Instances, and
+    // InformationInstances
 
- 
+    /** The dataset's name. */
+    protected String relationName;
+
+    /** The attribute information. */
+    protected List<Attribute> attributes;
+
+    protected int classIndex;
+
     public InstanceInformation(InstanceInformation chunk) {
         this.relationName = chunk.relationName;
         this.attributes = chunk.attributes;
         this.classIndex = chunk.classIndex;
     }
-    
+
     public InstanceInformation(String st, List<Attribute> v) {
         this.relationName = st;
         this.attributes = v;
     }
-    
+
     public InstanceInformation() {
         this.relationName = null;
         this.attributes = null;
     }
-    
-    
-    //Information Instances
-    
+
+    // Information Instances
+
     public void setRelationName(String string) {
         this.relationName = string;
     }
@@ -71,15 +69,15 @@ public class InstanceInformation implements Serializable{
     public String getRelationName() {
         return this.relationName;
     }
-    
+
     public int classIndex() {
-        return classIndex; 
+        return classIndex;
     }
 
     public void setClassIndex(int classIndex) {
         this.classIndex = classIndex;
     }
-  
+
     public Attribute classAttribute() {
         return this.attribute(this.classIndex());
     }
@@ -91,11 +89,11 @@ public class InstanceInformation implements Serializable{
     public Attribute attribute(int w) {
         return this.attributes.get(w);
     }
-    
+
     public int numClasses() {
         return this.attributes.get(this.classIndex()).numValues();
     }
-    
+
     public void deleteAttributeAt(Integer integer) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -107,6 +105,5 @@ public class InstanceInformation implements Serializable{
     public void setAttributes(List<Attribute> v) {
         this.attributes = v;
     }
-    
-    
+
 }

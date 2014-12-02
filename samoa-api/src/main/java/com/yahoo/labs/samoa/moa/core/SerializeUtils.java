@@ -37,7 +37,7 @@ import java.util.zip.GZIPOutputStream;
 
 /**
  * Class implementing some serialize utility methods.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

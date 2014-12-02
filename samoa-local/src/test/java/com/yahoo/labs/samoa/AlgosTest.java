@@ -24,7 +24,6 @@ import org.junit.Test;
 
 public class AlgosTest {
 
-
     @Test
     public void testVHTLocal() throws Exception {
 

@@ -28,7 +28,7 @@ import com.yahoo.labs.samoa.moa.MOAObject;
 
 /**
  * Vector with the capability of automatic expansion.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -39,7 +39,7 @@ public class AutoExpandVector<T> extends ArrayList<T> implements MOAObject {
     public AutoExpandVector() {
         super(0);
     }
-    
+
     public AutoExpandVector(int size) {
         super(size);
     }

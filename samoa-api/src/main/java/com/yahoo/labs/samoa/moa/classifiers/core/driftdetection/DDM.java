@@ -25,19 +25,21 @@ import com.yahoo.labs.samoa.moa.core.ObjectRepository;
 import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
- *  Drift detection method based in DDM method of Joao Gama SBIA 2004.
- *
- *  <p>João Gama, Pedro Medas, Gladys Castillo, Pedro Pereira Rodrigues: Learning
- * with Drift Detection. SBIA 2004: 286-295 </p>
- *
- *  @author Manuel Baena (mbaena@lcc.uma.es)
- *  @version $Revision: 7 $
+ * Drift detection method based in DDM method of Joao Gama SBIA 2004.
+ * 
+ * <p>
+ * Joao Gama, Pedro Medas, Gladys Castillo, Pedro Pereira Rodrigues: Learning
+ * with Drift Detection. SBIA 2004: 286-295
+ * </p>
+ * 
+ * @author Manuel Baena (mbaena@lcc.uma.es)
+ * @version $Revision: 7 $
  */
 public class DDM extends AbstractChangeDetector {
 
     private static final long serialVersionUID = -3518369648142099719L;
 
-    //private static final int DDM_MINNUMINST = 30;
+    // private static final int DDM_MINNUMINST = 30;
     public IntOption minNumInstancesOption = new IntOption(
             "minNumInstances",
             'n',
@@ -98,15 +100,15 @@ public class DDM extends AbstractChangeDetector {
         }
 
         if (m_n > this.minNumInstancesOption.getValue() && m_p + m_s > m_pmin + 3 * m_smin) {
-            //System.out.println(m_p + ",D");
+            // System.out.println(m_p + ",D");
             this.isChangeDetected = true;
-            //resetLearning();
+            // resetLearning();
         } else if (m_p + m_s > m_pmin + 2 * m_smin) {
-            //System.out.println(m_p + ",W");
+            // System.out.println(m_p + ",W");
             this.isWarningZone = true;
         } else {
             this.isWarningZone = false;
-            //System.out.println(m_p + ",N");
+            // System.out.println(m_p + ",N");
         }
     }
 

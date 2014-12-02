@@ -30,10 +30,11 @@ import com.yahoo.labs.samoa.moa.options.AbstractOptionHandler;
 import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
- * Class for observing the class data distribution for a numeric attribute using a binary tree.
- * This observer monitors the class distribution of a given attribute.
- * Used in naive Bayes and decision trees to monitor data statistics on leaves.
- *
+ * Class for observing the class data distribution for a numeric attribute using
+ * a binary tree. This observer monitors the class distribution of a given
+ * attribute. Used in naive Bayes and decision trees to monitor data statistics
+ * on leaves.
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -86,7 +87,7 @@ public class BinaryTreeNumericAttributeClassObserver extends AbstractOptionHandl
 
     @Override
     public void observeAttributeClass(double attVal, int classVal, double weight) {
-        if (Double.isNaN(attVal)) { //Instance.isMissingValue(attVal)
+        if (Double.isNaN(attVal)) { // Instance.isMissingValue(attVal)
         } else {
             if (this.root == null) {
                 this.root = new Node(attVal, classVal, weight);
@@ -128,7 +129,7 @@ public class BinaryTreeNumericAttributeClassObserver extends AbstractOptionHandl
             leftDist.addValues(parentLeft);
             rightDist.addValues(parentRight);
             if (leftChild) {
-                //get the exact statistics of the parent value
+                // get the exact statistics of the parent value
                 DoubleVector exactParentDist = new DoubleVector();
                 exactParentDist.addValues(actualParentLeft);
                 exactParentDist.subtractValues(currentNode.classCountsLeft);
@@ -147,20 +148,22 @@ public class BinaryTreeNumericAttributeClassObserver extends AbstractOptionHandl
                 rightDist.subtractValues(currentNode.classCountsLeft);
             }
         }
-        double[][] postSplitDists = new double[][]{leftDist.getArrayRef(),
-            rightDist.getArrayRef()};
+        double[][] postSplitDists = new double[][] { leftDist.getArrayRef(),
+                rightDist.getArrayRef() };
         double merit = criterion.getMeritOfSplit(preSplitDist, postSplitDists);
         if ((currentBestOption == null) || (merit > currentBestOption.merit)) {
             currentBestOption = new AttributeSplitSuggestion(
                     new NumericAttributeBinaryTest(attIndex,
-                    currentNode.cut_point, true), postSplitDists, merit);
+                            currentNode.cut_point, true), postSplitDists, merit);
 
         }
         currentBestOption = searchForBestSplitOption(currentNode.left,
-                currentBestOption, currentNode.classCountsLeft.getArrayRef(), postSplitDists[0], postSplitDists[1], true,
+                currentBestOption, currentNode.classCountsLeft.getArrayRef(), postSplitDists[0], postSplitDists[1],
+                true,
                 criterion, preSplitDist, attIndex);
         currentBestOption = searchForBestSplitOption(currentNode.right,
-                currentBestOption, currentNode.classCountsLeft.getArrayRef(), postSplitDists[0], postSplitDists[1], false,
+                currentBestOption, currentNode.classCountsLeft.getArrayRef(), postSplitDists[0], postSplitDists[1],
+                false,
                 criterion, preSplitDist, attIndex);
         return currentBestOption;
     }
@@ -174,10 +177,10 @@ public class BinaryTreeNumericAttributeClassObserver extends AbstractOptionHandl
     protected void prepareForUseImpl(TaskMonitor monitor, ObjectRepository repository) {
         // TODO Auto-generated method stub
     }
-    
+
     @Override
     public void observeAttributeTarget(double attVal, double target) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-   
+
 }

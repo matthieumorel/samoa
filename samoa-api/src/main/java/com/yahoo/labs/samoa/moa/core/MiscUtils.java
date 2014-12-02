@@ -24,10 +24,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Random;
 
-
 /**
  * Class implementing some utility methods.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @author Bernhard Pfahringer (bernhard@cs.waikato.ac.nz)
  * @version $Revision: 7 $
@@ -76,11 +75,12 @@ public class MiscUtils {
     /**
      * Returns index of maximum element in a given array of doubles. First
      * maximum is returned.
-     *
-     * @param doubles the array of doubles
+     * 
+     * @param doubles
+     *            the array of doubles
      * @return the index of the maximum element
      */
-    public static /*@pure@*/ int maxIndex(double[] doubles) {
+    public static/* @pure@ */int maxIndex(double[] doubles) {
 
         double maximum = 0;
         int maxIndex = 0;

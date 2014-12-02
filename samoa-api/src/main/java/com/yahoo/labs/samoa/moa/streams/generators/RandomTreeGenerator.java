@@ -41,7 +41,7 @@ import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
  * Stream generator for a stream based on a randomly generated tree..
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -152,7 +152,8 @@ public class RandomTreeGenerator extends AbstractOptionHandler implements
         InstancesHeader header = getHeader();
         Instance inst = new DenseInstance(header.numAttributes());
         for (int i = 0; i < attVals.length; i++) {
-            attVals[i] = i < this.numNominalsOption.getValue() ? this.instanceRandom.nextInt(this.numValsPerNominalOption.getValue())
+            attVals[i] = i < this.numNominalsOption.getValue() ? this.instanceRandom
+                    .nextInt(this.numValsPerNominalOption.getValue())
                     : this.instanceRandom.nextDouble();
             inst.setValue(i, attVals[i]);
         }
@@ -171,7 +172,7 @@ public class RandomTreeGenerator extends AbstractOptionHandler implements
         }
         return classifyInstance(
                 node.children[attVals[node.splitAttIndex] < node.splitAttValue ? 0
-                : 1], attVals);
+                        : 1], attVals);
     }
 
     protected void generateHeader() {
@@ -218,7 +219,8 @@ public class RandomTreeGenerator extends AbstractOptionHandler implements
             ArrayList<Integer> nominalAttCandidates, double[] minNumericVals,
             double[] maxNumericVals, Random treeRand) {
         if ((currentDepth >= this.maxTreeDepthOption.getValue())
-                || ((currentDepth >= this.firstLeafLevelOption.getValue()) && (this.leafFractionOption.getValue() >= (1.0 - treeRand.nextDouble())))) {
+                || ((currentDepth >= this.firstLeafLevelOption.getValue()) && (this.leafFractionOption.getValue() >= (1.0 - treeRand
+                        .nextDouble())))) {
             Node leaf = new Node();
             leaf.classLabel = treeRand.nextInt(this.numClassesOption.getValue());
             return leaf;

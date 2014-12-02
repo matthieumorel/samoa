@@ -48,8 +48,8 @@ class StormEntranceProcessingItem extends AbstractEntranceProcessingItem impleme
     }
 
     StormEntranceProcessingItem(EntranceProcessor processor, String friendlyId) {
-    	super(processor);
-    	this.setName(friendlyId);
+        super(processor);
+        this.setName(friendlyId);
         this.piSpout = new StormEntranceSpout(processor);
     }
 
@@ -59,12 +59,12 @@ class StormEntranceProcessingItem extends AbstractEntranceProcessingItem impleme
         piSpout.setOutputStream((StormStream) stream);
         return this;
     }
-    
+
     @Override
     public Stream getOutputStream() {
-    	return piSpout.getOutputStream();
+        return piSpout.getOutputStream();
     }
-    
+
     @Override
     public void addToTopology(StormTopology topology, int parallelismHint) {
         topology.getStormBuilder().setSpout(this.getName(), piSpout, parallelismHint);
@@ -142,7 +142,8 @@ class StormEntranceProcessingItem extends AbstractEntranceProcessingItem impleme
                 collector.emit(outputStream.getOutputId(), value);
             } else
                 Utils.sleep(1000);
-            // StormTupleInfo tupleInfo = tupleInfoQueue.poll(50, TimeUnit.MILLISECONDS);
+            // StormTupleInfo tupleInfo = tupleInfoQueue.poll(50,
+            // TimeUnit.MILLISECONDS);
             // if (tupleInfo != null) {
             // Values value = newValues(tupleInfo.getContentEvent());
             // collector.emit(tupleInfo.getStormStream().getOutputId(), value);
@@ -152,9 +153,12 @@ class StormEntranceProcessingItem extends AbstractEntranceProcessingItem impleme
         @Override
         public void declareOutputFields(OutputFieldsDeclarer declarer) {
             // for (StormStream stream : streams) {
-            // declarer.declareStream(stream.getOutputId(), new Fields(StormSamoaUtils.CONTENT_EVENT_FIELD, StormSamoaUtils.KEY_FIELD));
+            // declarer.declareStream(stream.getOutputId(), new
+            // Fields(StormSamoaUtils.CONTENT_EVENT_FIELD,
+            // StormSamoaUtils.KEY_FIELD));
             // }
-            declarer.declareStream(outputStream.getOutputId(), new Fields(StormSamoaUtils.CONTENT_EVENT_FIELD, StormSamoaUtils.KEY_FIELD));
+            declarer.declareStream(outputStream.getOutputId(), new Fields(StormSamoaUtils.CONTENT_EVENT_FIELD,
+                    StormSamoaUtils.KEY_FIELD));
         }
 
         StormStream createStream(String piId) {

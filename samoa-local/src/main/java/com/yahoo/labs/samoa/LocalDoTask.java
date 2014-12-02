@@ -41,9 +41,9 @@ public class LocalDoTask {
 
     // TODO: clean up this class for helping ML Developer in SAMOA
     // TODO: clean up code from storm-impl
-	
-	// It seems that the 3 extra options are not used.
-	// Probably should remove them
+
+    // It seems that the 3 extra options are not used.
+    // Probably should remove them
     private static final String SUPPRESS_STATUS_OUT_MSG = "Suppress the task status output. Normally it is sent to stderr.";
     private static final String SUPPRESS_RESULT_OUT_MSG = "Suppress the task result output. Normally it is sent to stdout.";
     private static final String STATUS_UPDATE_FREQ_MSG = "Wait time in milliseconds between status updates.";
@@ -57,7 +57,8 @@ public class LocalDoTask {
      */
     public static void main(String[] args) {
 
-        // ArrayList<String> tmpArgs = new ArrayList<String>(Arrays.asList(args));
+        // ArrayList<String> tmpArgs = new
+        // ArrayList<String>(Arrays.asList(args));
 
         // args = tmpArgs.toArray(new String[0]);
 
@@ -65,7 +66,8 @@ public class LocalDoTask {
 
         FlagOption suppressResultOutOpt = new FlagOption("suppressResultOut", 'R', SUPPRESS_RESULT_OUT_MSG);
 
-        IntOption statusUpdateFreqOpt = new IntOption("statusUpdateFrequency", 'F', STATUS_UPDATE_FREQ_MSG, 1000, 0, Integer.MAX_VALUE);
+        IntOption statusUpdateFreqOpt = new IntOption("statusUpdateFrequency", 'F', STATUS_UPDATE_FREQ_MSG, 1000, 0,
+                Integer.MAX_VALUE);
 
         Option[] extraOptions = new Option[] { suppressStatusOutOpt, suppressResultOutOpt, statusUpdateFreqOpt };
 

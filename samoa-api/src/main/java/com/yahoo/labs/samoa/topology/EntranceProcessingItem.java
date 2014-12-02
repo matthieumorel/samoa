@@ -40,7 +40,8 @@ public interface EntranceProcessingItem extends IProcessingItem {
      * 
      * @param stream
      *            the stream
-     * @return the current instance of the EntranceProcessingItem for fluent interface.
+     * @return the current instance of the EntranceProcessingItem for fluent
+     *         interface.
      */
     public EntranceProcessingItem setOutputStream(Stream stream);
 }

@@ -24,7 +24,6 @@ import org.junit.Test;
 
 public class AlgosTest {
 
-
     @Test(timeout = 60000)
     public void testVHTWithStorm() throws Exception {
 
@@ -63,6 +62,5 @@ public class AlgosTest {
         TestUtils.test(baggingConfig);
 
     }
-
 
 }

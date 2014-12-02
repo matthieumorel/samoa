@@ -26,13 +26,13 @@ import com.yahoo.labs.samoa.moa.AbstractMOAObject;
 
 /**
  * Class for computing attribute split suggestions given a split test.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
 public class AttributeSplitSuggestion extends AbstractMOAObject implements
         Comparable<AttributeSplitSuggestion> {
-    
+
     private static final long serialVersionUID = 1L;
 
     public InstanceConditionalTest splitTest;
@@ -40,7 +40,7 @@ public class AttributeSplitSuggestion extends AbstractMOAObject implements
     public double[][] resultingClassDistributions;
 
     public double merit;
-    
+
     public AttributeSplitSuggestion() {
     };
 

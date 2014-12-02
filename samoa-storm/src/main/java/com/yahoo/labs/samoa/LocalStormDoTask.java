@@ -34,9 +34,9 @@ import com.yahoo.labs.samoa.topology.impl.StormTopology;
 
 /**
  * The main class to execute a SAMOA task in LOCAL mode in Storm.
- *
+ * 
  * @author Arinto Murdopo
- *
+ * 
  */
 public class LocalStormDoTask {
 
@@ -44,8 +44,9 @@ public class LocalStormDoTask {
 
     /**
      * The main method.
-     *
-     * @param args the arguments
+     * 
+     * @param args
+     *            the arguments
      */
     public static void main(String[] args) {
 
@@ -55,15 +56,15 @@ public class LocalStormDoTask {
 
         args = tmpArgs.toArray(new String[0]);
 
-        //convert the arguments into Storm topology
+        // convert the arguments into Storm topology
         StormTopology stormTopo = StormSamoaUtils.argsToTopology(args);
         String topologyName = stormTopo.getTopologyName();
 
         Config conf = new Config();
-        //conf.putAll(Utils.readStormConfig());
+        // conf.putAll(Utils.readStormConfig());
         conf.setDebug(false);
 
-        //local mode
+        // local mode
         conf.setMaxTaskParallelism(numWorker);
 
         backtype.storm.LocalCluster cluster = new backtype.storm.LocalCluster();

@@ -27,8 +27,8 @@ import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
  * Drift detection method based in Page Hinkley Test.
- *
- *
+ * 
+ * 
  * @author Manuel Baena (mbaena@lcc.uma.es)
  * @version $Revision: 7 $
  */
@@ -101,7 +101,7 @@ public class PageHinkleyDM extends AbstractChangeDetector {
 
         if (sum > this.lambda) {
             this.isChangeDetected = true;
-        } 
+        }
     }
 
     @Override

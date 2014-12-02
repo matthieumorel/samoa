@@ -33,6 +33,7 @@ import com.yahoo.labs.samoa.moa.core.DataPoint;
 import com.yahoo.labs.samoa.topology.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 //import weka.core.Instance;
 
 /**
@@ -62,8 +63,9 @@ final public class LocalClustererProcessor implements Processor {
 
     /**
      * Sets the learner.
-     *
-     * @param model the model to set
+     * 
+     * @param model
+     *            the model to set
      */
     public void setLearner(LocalClustererAdapter model) {
         this.model = model;
@@ -71,7 +73,7 @@ final public class LocalClustererProcessor implements Processor {
 
     /**
      * Gets the learner.
-     *
+     * 
      * @return the model
      */
     public LocalClustererAdapter getLearner() {
@@ -80,8 +82,9 @@ final public class LocalClustererProcessor implements Processor {
 
     /**
      * Set the output streams.
-     *
-     * @param outputStream the new output stream {@link PredictionCombinerPE}.
+     * 
+     * @param outputStream
+     *            the new output stream {@link PredictionCombinerPE}.
      */
     public void setOutputStream(Stream outputStream) {
 
@@ -90,7 +93,7 @@ final public class LocalClustererProcessor implements Processor {
 
     /**
      * Gets the output stream.
-     *
+     * 
      * @return the output stream
      */
     public Stream getOutputStream() {
@@ -99,7 +102,7 @@ final public class LocalClustererProcessor implements Processor {
 
     /**
      * Gets the instances count.
-     *
+     * 
      * @return number of observation vectors used in training iteration.
      */
     public long getInstancesCount() {
@@ -108,33 +111,34 @@ final public class LocalClustererProcessor implements Processor {
 
     /**
      * Update stats.
-     *
-     * @param event the event
+     * 
+     * @param event
+     *            the event
      */
     private void updateStats(ContentEvent event) {
         Instance instance;
-        if (event instanceof ClusteringContentEvent){
-            //Local Clustering
+        if (event instanceof ClusteringContentEvent) {
+            // Local Clustering
             ClusteringContentEvent ev = (ClusteringContentEvent) event;
             instance = ev.getInstance();
             DataPoint point = new DataPoint(instance, Integer.parseInt(event.getKey()));
             model.trainOnInstance(point);
             instancesCount++;
         }
-        
-        if (event instanceof ClusteringResultContentEvent){
-            //Global Clustering
+
+        if (event instanceof ClusteringResultContentEvent) {
+            // Global Clustering
             ClusteringResultContentEvent ev = (ClusteringResultContentEvent) event;
-            Clustering clustering = ev.getClustering(); 
-            
-            for (int i=0; i<clustering.size(); i++) { 
-                instance = new DenseInstance(1.0,clustering.get(i).getCenter());
+            Clustering clustering = ev.getClustering();
+
+            for (int i = 0; i < clustering.size(); i++) {
+                instance = new DenseInstance(1.0, clustering.get(i).getCenter());
                 instance.setDataset(model.getDataset());
                 DataPoint point = new DataPoint(instance, Integer.parseInt(event.getKey()));
                 model.trainOnInstance(point);
                 instancesCount++;
             }
-        }    
+        }
 
         if (instancesCount % this.sampleFrequency == 0) {
             logger.info("Trained model using {} events with classifier id {}", instancesCount, this.modelId); // getId());
@@ -143,20 +147,22 @@ final public class LocalClustererProcessor implements Processor {
 
     /**
      * On event.
-     *
-     * @param event the event
+     * 
+     * @param event
+     *            the event
      * @return true, if successful
      */
     @Override
     public boolean process(ContentEvent event) {
-       
-        if (event.isLastEvent() || 
-                (instancesCount > 0 && instancesCount% this.sampleFrequency == 0)) {
+
+        if (event.isLastEvent() ||
+                (instancesCount > 0 && instancesCount % this.sampleFrequency == 0)) {
             if (model.implementsMicroClusterer()) {
 
                 Clustering clustering = model.getMicroClusteringResult();
 
-                ClusteringResultContentEvent resultEvent = new ClusteringResultContentEvent(clustering, event.isLastEvent());
+                ClusteringResultContentEvent resultEvent = new ClusteringResultContentEvent(clustering,
+                        event.isLastEvent());
 
                 this.outputStream.put(resultEvent);
             }
@@ -166,7 +172,9 @@ final public class LocalClustererProcessor implements Processor {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see samoa.core.Processor#onCreate(int)
      */
     @Override
@@ -175,7 +183,9 @@ final public class LocalClustererProcessor implements Processor {
         model = model.create();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see samoa.core.Processor#newProcessor(samoa.core.Processor)
      */
     @Override

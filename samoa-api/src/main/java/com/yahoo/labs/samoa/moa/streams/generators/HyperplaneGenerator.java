@@ -52,19 +52,26 @@ public class HyperplaneGenerator extends AbstractOptionHandler implements Instan
 
     private static final long serialVersionUID = 1L;
 
-    public IntOption instanceRandomSeedOption = new IntOption("instanceRandomSeed", 'i', "Seed for random generation of instances.", 1);
+    public IntOption instanceRandomSeedOption = new IntOption("instanceRandomSeed", 'i',
+            "Seed for random generation of instances.", 1);
 
-    public IntOption numClassesOption = new IntOption("numClasses", 'c', "The number of classes to generate.", 2, 2, Integer.MAX_VALUE);
+    public IntOption numClassesOption = new IntOption("numClasses", 'c', "The number of classes to generate.", 2, 2,
+            Integer.MAX_VALUE);
 
-    public IntOption numAttsOption = new IntOption("numAtts", 'a', "The number of attributes to generate.", 10, 0, Integer.MAX_VALUE);
+    public IntOption numAttsOption = new IntOption("numAtts", 'a', "The number of attributes to generate.", 10, 0,
+            Integer.MAX_VALUE);
 
-    public IntOption numDriftAttsOption = new IntOption("numDriftAtts", 'k', "The number of attributes with drift.", 2, 0, Integer.MAX_VALUE);
+    public IntOption numDriftAttsOption = new IntOption("numDriftAtts", 'k', "The number of attributes with drift.", 2,
+            0, Integer.MAX_VALUE);
 
-    public FloatOption magChangeOption = new FloatOption("magChange", 't', "Magnitude of the change for every example", 0.0, 0.0, 1.0);
+    public FloatOption magChangeOption = new FloatOption("magChange", 't', "Magnitude of the change for every example",
+            0.0, 0.0, 1.0);
 
-    public IntOption noisePercentageOption = new IntOption("noisePercentage", 'n', "Percentage of noise to add to the data.", 5, 0, 100);
+    public IntOption noisePercentageOption = new IntOption("noisePercentage", 'n',
+            "Percentage of noise to add to the data.", 5, 0, 100);
 
-    public IntOption sigmaPercentageOption = new IntOption("sigmaPercentage", 's', "Percentage of probability that the direction of change is reversed.", 10,
+    public IntOption sigmaPercentageOption = new IntOption("sigmaPercentage", 's',
+            "Percentage of probability that the direction of change is reversed.", 10,
             0, 100);
 
     protected InstancesHeader streamHeader;
@@ -96,7 +103,8 @@ public class HyperplaneGenerator extends AbstractOptionHandler implements Instan
             classLabels.addElement("class" + (i + 1));
         }
         attributes.addElement(new Attribute("class", classLabels));
-        this.streamHeader = new InstancesHeader(new Instances(getCLICreationString(InstanceStream.class), attributes, 0));
+        this.streamHeader = new InstancesHeader(
+                new Instances(getCLICreationString(InstanceStream.class), attributes, 0));
         this.streamHeader.setClassIndex(this.streamHeader.numAttributes() - 1);
     }
 

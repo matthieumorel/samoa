@@ -64,12 +64,14 @@ public class ClusteringDistributorProcessor implements Processor {
      * @return true, if successful
      */
     public boolean process(ContentEvent event) {
-        // distinguish between ClusteringContentEvent and ClusteringEvaluationContentEvent
+        // distinguish between ClusteringContentEvent and
+        // ClusteringEvaluationContentEvent
         if (event instanceof ClusteringContentEvent) {
             ClusteringContentEvent cce = (ClusteringContentEvent) event;
             outputStream.put(event);
             if (cce.isSample()) {
-                evaluationStream.put(new ClusteringEvaluationContentEvent(null, new DataPoint(cce.getInstance(), numInstances++), cce.isLastEvent()));
+                evaluationStream.put(new ClusteringEvaluationContentEvent(null, new DataPoint(cce.getInstance(),
+                        numInstances++), cce.isLastEvent()));
             }
         } else if (event instanceof ClusteringEvaluationContentEvent) {
             evaluationStream.put(event);

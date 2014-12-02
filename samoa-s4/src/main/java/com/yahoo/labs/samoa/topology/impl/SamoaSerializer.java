@@ -32,9 +32,9 @@ import com.google.inject.assistedinject.Assisted;
 import com.yahoo.labs.samoa.learners.classifiers.trees.AttributeContentEvent;
 import com.yahoo.labs.samoa.learners.classifiers.trees.ComputeContentEvent;
 
-public class SamoaSerializer implements SerializerDeserializer{
+public class SamoaSerializer implements SerializerDeserializer {
 
-	private ThreadLocal<Kryo> kryoThreadLocal;
+    private ThreadLocal<Kryo> kryoThreadLocal;
     private ThreadLocal<Output> outputThreadLocal;
 
     private int initialBufferSize = 2048;
@@ -47,8 +47,9 @@ public class SamoaSerializer implements SerializerDeserializer{
     /**
      * 
      * @param classLoader
-     *            classloader able to handle classes to serialize/deserialize. For instance, application-level events
-     *            can only be handled by the application classloader.
+     *            classloader able to handle classes to serialize/deserialize.
+     *            For instance, application-level events can only be handled by
+     *            the application classloader.
      */
     @Inject
     public SamoaSerializer(@Assisted final ClassLoader classLoader) {

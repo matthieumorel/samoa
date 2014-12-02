@@ -26,7 +26,7 @@ import com.yahoo.labs.samoa.moa.core.Measurement;
 
 /**
  * Regression evaluator that performs basic incremental evaluation.
- *
+ * 
  * @author Albert Bifet (abifet at cs dot waikato dot ac dot nz)
  * @version $Revision: 7 $
  */
@@ -40,11 +40,11 @@ public class BasicRegressionPerformanceEvaluator extends AbstractMOAObject
     protected double squareError;
 
     protected double averageError;
-   
+
     protected double sumTarget;
-   
+
     protected double squareTargetError;
-   
+
     protected double averageTargetError;
 
     @Override
@@ -55,17 +55,17 @@ public class BasicRegressionPerformanceEvaluator extends AbstractMOAObject
         this.sumTarget = 0.0;
         this.averageTargetError = 0.0;
         this.squareTargetError = 0.0;
-       
+
     }
 
     @Override
     public void addResult(Instance inst, double[] prediction) {
-    	double weight = inst.weight();
+        double weight = inst.weight();
         double classValue = inst.classValue();
         if (weight > 0.0) {
             if (prediction.length > 0) {
                 double meanTarget = this.weightObserved != 0 ?
-                            this.sumTarget / this.weightObserved : 0.0;
+                        this.sumTarget / this.weightObserved : 0.0;
                 this.squareError += (classValue - prediction[0]) * (classValue - prediction[0]);
                 this.averageError += Math.abs(classValue - prediction[0]);
                 this.squareTargetError += (classValue - meanTarget) * (classValue - meanTarget);
@@ -78,17 +78,17 @@ public class BasicRegressionPerformanceEvaluator extends AbstractMOAObject
 
     @Override
     public Measurement[] getPerformanceMeasurements() {
-        return new Measurement[]{
-                    new Measurement("classified instances",
-                    getTotalWeightObserved()),
-                    new Measurement("mean absolute error",
-                    getMeanError()),
-                    new Measurement("root mean squared error",
-                    getSquareError()),
-                    new Measurement("relative mean absolute error",
-                    getRelativeMeanError()),
-                    new Measurement("relative root mean squared error",
-                    getRelativeSquareError())
+        return new Measurement[] {
+                new Measurement("classified instances",
+                        getTotalWeightObserved()),
+                new Measurement("mean absolute error",
+                        getMeanError()),
+                new Measurement("root mean squared error",
+                        getSquareError()),
+                new Measurement("relative mean absolute error",
+                        getRelativeMeanError()),
+                new Measurement("relative root mean squared error",
+                        getRelativeSquareError())
         };
     }
 
@@ -105,7 +105,7 @@ public class BasicRegressionPerformanceEvaluator extends AbstractMOAObject
         return Math.sqrt(this.weightObserved > 0.0 ? this.squareError
                 / this.weightObserved : 0.0);
     }
-   
+
     public double getTargetMeanError() {
         return this.weightObserved > 0.0 ? this.averageTargetError
                 / this.weightObserved : 0.0;
@@ -123,12 +123,12 @@ public class BasicRegressionPerformanceEvaluator extends AbstractMOAObject
     }
 
     private double getRelativeMeanError() {
-        return this.averageTargetError> 0 ?
-                this.averageError/this.averageTargetError : 0.0;
+        return this.averageTargetError > 0 ?
+                this.averageError / this.averageTargetError : 0.0;
     }
 
     private double getRelativeSquareError() {
-    	return Math.sqrt(this.squareTargetError> 0 ?
-                this.squareError/this.squareTargetError : 0.0);
+        return Math.sqrt(this.squareTargetError > 0 ?
+                this.squareError / this.squareTargetError : 0.0);
     }
 }

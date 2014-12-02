@@ -28,7 +28,7 @@ import com.yahoo.labs.samoa.moa.tasks.Task;
 
 /**
  * Class option.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -135,7 +135,8 @@ public class ClassOption extends AbstractClassOption {
                     + className, ex);
         }
         if (requiredType.isInstance(classInstance)
-                || ((classInstance instanceof Task) && requiredType.isAssignableFrom(((Task) classInstance).getTaskResultType()))) {
+                || ((classInstance instanceof Task) && requiredType.isAssignableFrom(((Task) classInstance)
+                        .getTaskResultType()))) {
             Options options = new Options();
             if (externalOptions != null) {
                 for (Option option : externalOptions) {
@@ -168,8 +169,8 @@ public class ClassOption extends AbstractClassOption {
         return classInstance;
     }
 
-    //@Override
-    //public JComponent getEditComponent() {
-    //    return new ClassOptionEditComponent(this);
-    //}
+    // @Override
+    // public JComponent getEditComponent() {
+    // return new ClassOptionEditComponent(this);
+    // }
 }

@@ -49,7 +49,8 @@ public class AlgosTest {
         TestParams baggingConfig = new TestParams.Builder()
                 .inputInstances(100_000)
                 .samplingSize(10_000)
-                .inputDelayMicroSec(100) // prevents saturating the system due to unbounded queues
+                .inputDelayMicroSec(100) // prevents saturating the system due
+                                         // to unbounded queues
                 .evaluationInstances(90_000)
                 .classifiedInstances(105_000)
                 .classificationsCorrect(55f)
@@ -63,6 +64,5 @@ public class AlgosTest {
         TestUtils.test(baggingConfig);
 
     }
-
 
 }

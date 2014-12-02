@@ -25,11 +25,13 @@ import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
  * Drift detection method based in EDDM method of Manuel Baena et al.
- *
- * <p>Early Drift Detection Method. Manuel Baena-Garcia, Jose Del Campo-Avila,
- * Raúl Fidalgo, Albert Bifet, Ricard Gavalda, Rafael Morales-Bueno. In Fourth
- * International Workshop on Knowledge Discovery from Data Streams, 2006.</p>
- *
+ * 
+ * <p>
+ * Early Drift Detection Method. Manuel Baena-Garcia, Jose Del Campo-Avila, Raul
+ * Fidalgo, Albert Bifet, Ricard Gavalda, Rafael Morales-Bueno. In Fourth
+ * International Workshop on Knowledge Discovery from Data Streams, 2006.
+ * </p>
+ * 
  * @author Manuel Baena (mbaena@lcc.uma.es)
  * @version $Revision: 7 $
  */
@@ -77,7 +79,7 @@ public class EDDM extends AbstractChangeDetector {
         m_mean = 0.0;
         m_stdTemp = 0.0;
         m_m2smax = 0.0;
-        //m_lastLevel = DDM_INCONTROL_LEVEL;
+        // m_lastLevel = DDM_INCONTROL_LEVEL;
         this.estimation = 0.0;
     }
 
@@ -90,7 +92,7 @@ public class EDDM extends AbstractChangeDetector {
             resetLearning();
         }
         this.isChangeDetected = false;
-        
+
         m_n++;
         if (prediction == 1.0) {
             this.isWarningZone = false;
@@ -113,28 +115,28 @@ public class EDDM extends AbstractChangeDetector {
                 if (m_n > FDDM_MINNUMINSTANCES) {
                     m_m2smax = m2s;
                 }
-                //m_lastLevel = DDM_INCONTROL_LEVEL;
+                // m_lastLevel = DDM_INCONTROL_LEVEL;
                 // System.out.print(1 + " ");
             } else {
                 double p = m2s / m_m2smax;
                 // System.out.print(p + " ");
                 if (m_n > FDDM_MINNUMINSTANCES && m_numErrors > m_minNumErrors
                         && p < FDDM_OUTCONTROL) {
-                    //System.out.println(m_mean + ",D");
+                    // System.out.println(m_mean + ",D");
                     this.isChangeDetected = true;
-                    //resetLearning();
-                    //return DDM_OUTCONTROL_LEVEL;
+                    // resetLearning();
+                    // return DDM_OUTCONTROL_LEVEL;
                 } else if (m_n > FDDM_MINNUMINSTANCES
                         && m_numErrors > m_minNumErrors && p < FDDM_WARNING) {
-                    //System.out.println(m_mean + ",W");
-                    //m_lastLevel = DDM_WARNING_LEVEL;
+                    // System.out.println(m_mean + ",W");
+                    // m_lastLevel = DDM_WARNING_LEVEL;
                     this.isWarningZone = true;
-                    //return DDM_WARNING_LEVEL;
+                    // return DDM_WARNING_LEVEL;
                 } else {
                     this.isWarningZone = false;
-                    //System.out.println(m_mean + ",N");
-                    //m_lastLevel = DDM_INCONTROL_LEVEL;
-                    //return DDM_INCONTROL_LEVEL;
+                    // System.out.println(m_mean + ",N");
+                    // m_lastLevel = DDM_INCONTROL_LEVEL;
+                    // return DDM_INCONTROL_LEVEL;
                 }
             }
         } else {

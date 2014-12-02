@@ -40,15 +40,18 @@ public class Utils {
         boolean quote = false;
 
         // backquote the following characters
-        if ((string.indexOf('\n') != -1) || (string.indexOf('\r') != -1) || (string.indexOf('\'') != -1) || (string.indexOf('"') != -1)
-                || (string.indexOf('\\') != -1) || (string.indexOf('\t') != -1) || (string.indexOf('%') != -1) || (string.indexOf('\u001E') != -1)) {
+        if ((string.indexOf('\n') != -1) || (string.indexOf('\r') != -1) || (string.indexOf('\'') != -1)
+                || (string.indexOf('"') != -1)
+                || (string.indexOf('\\') != -1) || (string.indexOf('\t') != -1) || (string.indexOf('%') != -1)
+                || (string.indexOf('\u001E') != -1)) {
             string = backQuoteChars(string);
             quote = true;
         }
 
         // Enclose the string in 's if the string contains a recently added
         // backquote or contains one of the following characters.
-        if ((quote == true) || (string.indexOf('{') != -1) || (string.indexOf('}') != -1) || (string.indexOf(',') != -1) || (string.equals("?"))
+        if ((quote == true) || (string.indexOf('{') != -1) || (string.indexOf('}') != -1)
+                || (string.indexOf(',') != -1) || (string.equals("?"))
                 || (string.indexOf(' ') != -1) || (string.equals(""))) {
             string = ("'".concat(string)).concat("'");
         }

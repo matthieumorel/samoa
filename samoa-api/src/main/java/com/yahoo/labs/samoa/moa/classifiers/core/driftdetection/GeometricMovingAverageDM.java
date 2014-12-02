@@ -27,8 +27,8 @@ import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
  * Drift detection method based in Geometric Moving Average Test
- *
- *
+ * 
+ * 
  * @author Manuel Baena (mbaena@lcc.uma.es)
  * @version $Revision: 7 $
  */
@@ -53,7 +53,7 @@ public class GeometricMovingAverageDM extends AbstractChangeDetector {
     private double sum;
 
     private double x_mean;
-                                                                                            
+
     private double alpha;
 
     private double delta;
@@ -81,8 +81,7 @@ public class GeometricMovingAverageDM extends AbstractChangeDetector {
         }
 
         x_mean = x_mean + (x - x_mean) / m_n;
-        sum = alpha * sum + ( 1.0- alpha) * (x - x_mean);
-
+        sum = alpha * sum + (1.0 - alpha) * (x - x_mean);
 
         m_n++;
 
@@ -98,7 +97,7 @@ public class GeometricMovingAverageDM extends AbstractChangeDetector {
 
         if (sum > this.lambda) {
             this.isChangeDetected = true;
-        } 
+        }
     }
 
     @Override

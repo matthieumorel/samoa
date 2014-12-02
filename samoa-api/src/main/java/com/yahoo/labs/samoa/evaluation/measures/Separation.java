@@ -38,11 +38,11 @@ public class Separation extends MeasureCollection {
 
     @Override
     protected String[] getNames() {
-        String[] names = {"BSS", "BSS-GT", "BSS-Ratio"};
+        String[] names = { "BSS", "BSS-GT", "BSS-Ratio" };
         return names;
     }
 
-    //@Override
+    // @Override
     public void evaluateClusteringSamoa(Clustering clustering,
             Clustering trueClustering, ArrayList<Instance> points)
             throws Exception {
@@ -53,7 +53,7 @@ public class Separation extends MeasureCollection {
         SphereCluster sc = new SphereCluster(points, dimension);
 
         // DO INTERNAL EVALUATION
-        //clustering.getClustering().get(0).getCenter();
+        // clustering.getClustering().get(0).getCenter();
 
         BSS = getBSS(clustering, sc.getCenter());
 
@@ -65,7 +65,7 @@ public class Separation extends MeasureCollection {
                 listInstances.add(inst);
                 s += " " + c.getWeight();
             }
-            //	System.out.println(s);
+            // System.out.println(s);
             SphereCluster gt = new SphereCluster(listInstances, dimension);
             BSS_GT = getBSS(trueClustering, gt.getCenter());
         }
@@ -102,7 +102,7 @@ public class Separation extends MeasureCollection {
         SphereCluster sc = new SphereCluster(points, dimension);
 
         // DO INTERNAL EVALUATION
-        //clustering.getClustering().get(0).getCenter();
+        // clustering.getClustering().get(0).getCenter();
 
         BSS = getBSS(clustering, sc.getCenter());
 
@@ -114,7 +114,7 @@ public class Separation extends MeasureCollection {
                 listInstances.add(inst);
                 s += " " + c.getWeight();
             }
-            //	System.out.println(s);
+            // System.out.println(s);
             SphereCluster gt = new SphereCluster(listInstances, dimension);
             BSS_GT = getBSS(trueClustering, gt.getCenter());
         }

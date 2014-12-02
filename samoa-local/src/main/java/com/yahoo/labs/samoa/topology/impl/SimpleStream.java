@@ -45,27 +45,28 @@ class SimpleStream extends AbstractStream {
     private int eventCounter;
 
     SimpleStream(IProcessingItem sourcePi) {
-    	super(sourcePi);
-    	this.destinations = new LinkedList<StreamDestination>();
-    	this.eventCounter = 0;
-    	this.maxCounter = 1;
+        super(sourcePi);
+        this.destinations = new LinkedList<StreamDestination>();
+        this.eventCounter = 0;
+        this.maxCounter = 1;
     }
 
     private int getNextCounter() {
-    	if (maxCounter > 0 && eventCounter >= maxCounter) eventCounter = 0;
-    	this.eventCounter++;
-    	return this.eventCounter;
+        if (maxCounter > 0 && eventCounter >= maxCounter)
+            eventCounter = 0;
+        this.eventCounter++;
+        return this.eventCounter;
     }
 
     @Override
     public void put(ContentEvent event) {
-    	this.put(event, this.getNextCounter());
+        this.put(event, this.getNextCounter());
     }
-    
+
     private void put(ContentEvent event, int counter) {
-    	SimpleProcessingItem pi;
+        SimpleProcessingItem pi;
         int parallelism;
-        for (StreamDestination destination:destinations) {
+        for (StreamDestination destination : destinations) {
             pi = (SimpleProcessingItem) destination.getProcessingItem();
             parallelism = destination.getParallelism();
             switch (destination.getPartitioningScheme()) {
@@ -89,7 +90,8 @@ class SimpleStream extends AbstractStream {
 
     public void addDestination(StreamDestination destination) {
         this.destinations.add(destination);
-        if (maxCounter <= 0) maxCounter = 1;
+        if (maxCounter <= 0)
+            maxCounter = 1;
         maxCounter *= destination.getParallelism();
     }
 }

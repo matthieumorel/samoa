@@ -25,25 +25,26 @@ package com.yahoo.labs.samoa.instances;
  */
 
 /**
- *
+ * 
  * @author abifet
  */
-public class SparseInstance extends SingleLabelInstance{
-    
+public class SparseInstance extends SingleLabelInstance {
+
     public SparseInstance(double d, double[] res) {
-         super(d,res);
+        super(d, res);
     }
+
     public SparseInstance(SingleLabelInstance inst) {
         super(inst);
     }
 
     public SparseInstance(double numberAttributes) {
-      //super(1, new double[(int) numberAttributes-1]); 
-      super(1,null,null,(int) numberAttributes);  
+        // super(1, new double[(int) numberAttributes-1]);
+        super(1, null, null, (int) numberAttributes);
     }
-    
+
     public SparseInstance(double weight, double[] attributeValues, int[] indexValues, int numberAttributes) {
-        super(weight,attributeValues,indexValues,numberAttributes);
+        super(weight, attributeValues, indexValues, numberAttributes);
     }
-    
+
 }

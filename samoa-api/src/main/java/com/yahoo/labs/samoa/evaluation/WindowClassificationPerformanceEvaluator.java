@@ -29,14 +29,14 @@ import com.yahoo.labs.samoa.instances.Utils;
 /**
  * Classification evaluator that updates evaluation results using a sliding
  * window.
- *
+ * 
  * @author Albert Bifet (abifet at cs dot waikato dot ac dot nz)
  * @version $Revision: 7 $
  */
 public class WindowClassificationPerformanceEvaluator extends AbstractMOAObject implements
         ClassificationPerformanceEvaluator {
 
-     private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     public IntOption widthOption = new IntOption("width",
             'w', "Size of Window", 1000);
@@ -101,10 +101,9 @@ public class WindowClassificationPerformanceEvaluator extends AbstractMOAObject 
 
     }
 
-    /*   public void setWindowWidth(int w) {
-     this.width = w;
-     reset();
-     }*/
+    /*
+     * public void setWindowWidth(int w) { this.width = w; reset(); }
+     */
     @Override
     public void reset() {
         reset(this.numClasses);
@@ -133,7 +132,7 @@ public class WindowClassificationPerformanceEvaluator extends AbstractMOAObject 
         int trueClass = (int) inst.classValue();
         if (weight > 0.0) {
             if (TotalweightObserved == 0) {
-                reset(inst.numClasses()); 
+                reset(inst.numClasses());
             }
             this.TotalweightObserved += weight;
             this.weightObserved.add(weight);
@@ -143,7 +142,7 @@ public class WindowClassificationPerformanceEvaluator extends AbstractMOAObject 
             } else {
                 this.weightCorrect.add(0);
             }
-            //Add Kappa statistic information
+            // Add Kappa statistic information
             for (int i = 0; i < this.numClasses; i++) {
                 this.rowKappa[i].add(i == predictedClass ? weight : 0);
                 this.columnKappa[i].add(i == trueClass ? weight : 0);
@@ -160,15 +159,15 @@ public class WindowClassificationPerformanceEvaluator extends AbstractMOAObject 
 
     @Override
     public Measurement[] getPerformanceMeasurements() {
-        return new Measurement[]{
-            new Measurement("classified instances",
-            this.TotalweightObserved),
-            new Measurement("classifications correct (percent)",
-            getFractionCorrectlyClassified() * 100.0),
-            new Measurement("Kappa Statistic (percent)",
-            getKappaStatistic() * 100.0),
-            new Measurement("Kappa Temporal Statistic (percent)",
-            getKappaTemporalStatistic() * 100.0)
+        return new Measurement[] {
+                new Measurement("classified instances",
+                        this.TotalweightObserved),
+                new Measurement("classifications correct (percent)",
+                        getFractionCorrectlyClassified() * 100.0),
+                new Measurement("Kappa Statistic (percent)",
+                        getKappaStatistic() * 100.0),
+                new Measurement("Kappa Temporal Statistic (percent)",
+                        getKappaTemporalStatistic() * 100.0)
         };
 
     }

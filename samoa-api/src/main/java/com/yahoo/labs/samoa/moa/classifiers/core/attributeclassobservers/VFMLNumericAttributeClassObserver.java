@@ -36,9 +36,10 @@ import com.github.javacliparser.IntOption;
 import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
- * Class for observing the class data distribution for a numeric attribute as in VFML.
- * Used in naive Bayes and decision trees to monitor data statistics on leaves.
- *
+ * Class for observing the class data distribution for a numeric attribute as in
+ * VFML. Used in naive Bayes and decision trees to monitor data statistics on
+ * leaves.
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -68,8 +69,7 @@ public class VFMLNumericAttributeClassObserver extends AbstractOptionHandler
     protected List<Bin> binList = new ArrayList<Bin>();
 
     public IntOption numBinsOption = new IntOption("numBins", 'n',
-        "The number of bins.", 10, 1, Integer.MAX_VALUE);
-
+            "The number of bins.", 10, 1, Integer.MAX_VALUE);
 
     @Override
     public void observeAttributeClass(double attVal, int classVal, double weight) {
@@ -96,7 +96,7 @@ public class VFMLNumericAttributeClassObserver extends AbstractOptionHandler
                     Bin bin = this.binList.get(i);
                     if (((attVal >= bin.lowerBound) && (attVal < bin.upperBound))
                             || ((i == this.binList.size() - 1)
-                            && (attVal >= bin.lowerBound) && (attVal <= bin.upperBound))) {
+                                    && (attVal >= bin.lowerBound) && (attVal <= bin.upperBound))) {
                         found = true;
                         index = i;
                     } else if (attVal < bin.lowerBound) {
@@ -201,14 +201,14 @@ public class VFMLNumericAttributeClassObserver extends AbstractOptionHandler
         for (Bin bin : this.binList) {
             leftDist.addValues(bin.classWeights);
             rightDist.subtractValues(bin.classWeights);
-            double[][] postSplitDists = new double[][]{
-                leftDist.getArrayCopy(), rightDist.getArrayCopy()};
+            double[][] postSplitDists = new double[][] {
+                    leftDist.getArrayCopy(), rightDist.getArrayCopy() };
             double merit = criterion.getMeritOfSplit(preSplitDist,
                     postSplitDists);
             if ((bestSuggestion == null) || (merit > bestSuggestion.merit)) {
                 bestSuggestion = new AttributeSplitSuggestion(
                         new NumericAttributeBinaryTest(attIndex,
-                        bin.upperBound, false), postSplitDists, merit);
+                                bin.upperBound, false), postSplitDists, merit);
             }
         }
         return bestSuggestion;

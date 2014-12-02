@@ -34,18 +34,18 @@ public class SSQ extends MeasureCollection {
 
     @Override
     public String[] getNames() {
-        String[] names = {"SSQ"};
+        String[] names = { "SSQ" };
         return names;
     }
 
     @Override
     protected boolean[] getDefaultEnabled() {
-        boolean[] defaults = {false};
+        boolean[] defaults = { false };
         return defaults;
     }
 
     // TODO Work on this later
-    //@Override
+    // @Override
     public void evaluateClusteringSamoa(Clustering clustering,
             Clustering trueClsutering, ArrayList<Instance> points) {
         double sum = 0.0;
@@ -73,11 +73,12 @@ public class SSQ extends MeasureCollection {
     }
 
     @Override
-     public void evaluateClustering(Clustering clustering, Clustering trueClsutering, ArrayList<DataPoint> points) {
+    public void evaluateClustering(Clustering clustering, Clustering trueClsutering, ArrayList<DataPoint> points) {
         double sum = 0.0;
         for (int p = 0; p < points.size(); p++) {
-            //don't include noise
-            if(points.get(p).classValue()==-1) continue;
+            // don't include noise
+            if (points.get(p).classValue() == -1)
+                continue;
 
             double minDistance = Double.MAX_VALUE;
             for (int c = 0; c < clustering.size(); c++) {
@@ -89,10 +90,10 @@ public class SSQ extends MeasureCollection {
                 }
                 minDistance = Math.min(distance, minDistance);
             }
-            
-            sum+=minDistance;
+
+            sum += minDistance;
         }
-        
-        addValue(0,sum);
+
+        addValue(0, sum);
     }
 }

@@ -24,8 +24,9 @@ import com.yahoo.labs.samoa.instances.InstancesHeader;
 import com.yahoo.labs.samoa.instances.Instance;
 
 /**
- * Numeric binary conditional test for instances to use to split nodes in Hoeffding trees.
- *
+ * Numeric binary conditional test for instances to use to split nodes in
+ * Hoeffding trees.
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -48,8 +49,8 @@ public class NumericAttributeBinaryTest extends InstanceConditionalBinaryTest {
 
     @Override
     public int branchForInstance(Instance inst) {
-        int instAttIndex = this.attIndex ; // < inst.classIndex() ? this.attIndex
-               // : this.attIndex + 1;
+        int instAttIndex = this.attIndex; // < inst.classIndex() ? this.attIndex
+        // : this.attIndex + 1;
         if (inst.isMissing(instAttIndex)) {
             return -1;
         }
@@ -71,7 +72,7 @@ public class NumericAttributeBinaryTest extends InstanceConditionalBinaryTest {
                     + compareChar
                     + (branch == equalsBranch ? "= " : " ")
                     + InstancesHeader.getNumericValueString(context,
-                    this.attIndex, this.attValue);
+                            this.attIndex, this.attValue);
         }
         throw new IndexOutOfBoundsException();
     }
@@ -83,7 +84,7 @@ public class NumericAttributeBinaryTest extends InstanceConditionalBinaryTest {
 
     @Override
     public int[] getAttsTestDependsOn() {
-        return new int[]{this.attIndex};
+        return new int[] { this.attIndex };
     }
 
     public double getSplitValue() {

@@ -34,10 +34,13 @@ public class TopologyBuilder {
 
     // TODO:
     // Possible options:
-    // 1. we may convert this as interface and platform dependent builder will inherit this method
+    // 1. we may convert this as interface and platform dependent builder will
+    // inherit this method
     // 2. refactor by combining TopologyBuilder, ComponentFactory and Topology
-    // -ve -> fat class where it has capabilities to instantiate specific component and connecting them
-    // +ve -> easy abstraction for SAMOA developer "you just implement your builder logic here!"
+    // -ve -> fat class where it has capabilities to instantiate specific
+    // component and connecting them
+    // +ve -> easy abstraction for SAMOA developer
+    // "you just implement your builder logic here!"
     private ComponentFactory componentFactory;
     private Topology topology;
     private Map<Processor, IProcessingItem> mapProcessorToProcessingItem;
@@ -47,7 +50,8 @@ public class TopologyBuilder {
         // TODO: initialize _componentFactory using dynamic binding
         // for now, use StormComponentFactory
         // should the factory be Singleton (?)
-        // ans: at the moment, no, i.e. each builder will has its associated factory!
+        // ans: at the moment, no, i.e. each builder will has its associated
+        // factory!
         // and the factory will be instantiated using dynamic binding
         // this.componentFactory = new StormComponentFactory();
     }
@@ -63,15 +67,17 @@ public class TopologyBuilder {
      * @param topologyName
      */
     public void initTopology(String topologyName) {
-    	this.initTopology(topologyName, 0);
+        this.initTopology(topologyName, 0);
     }
-    
+
     /**
-     * Initiates topology with a specific name and a delay between consecutive instances.
+     * Initiates topology with a specific name and a delay between consecutive
+     * instances.
      * 
      * @param topologyName
      * @param delay
-     * 			delay between injections of two instances from source (in milliseconds)
+     *            delay between injections of two instances from source (in
+     *            milliseconds)
      */
     public void initTopology(String topologyName, int delay) {
         if (this.topology != null) {
@@ -173,7 +179,8 @@ public class TopologyBuilder {
     }
 
     /**
-     * Creates a processing item with a specific processor and paralellism level of 1.
+     * Creates a processing item with a specific processor and paralellism level
+     * of 1.
      * 
      * @param processor
      * @return ProcessingItem
@@ -184,7 +191,8 @@ public class TopologyBuilder {
     }
 
     /**
-     * Creates a processing item with a specific processor and paralellism level.
+     * Creates a processing item with a specific processor and paralellism
+     * level.
      * 
      * @param processor
      * @param paralellism

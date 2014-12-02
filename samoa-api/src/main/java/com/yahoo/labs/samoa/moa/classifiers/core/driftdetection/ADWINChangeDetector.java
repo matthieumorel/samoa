@@ -1,4 +1,3 @@
-
 package com.yahoo.labs.samoa.moa.classifiers.core.driftdetection;
 
 /*
@@ -25,15 +24,14 @@ import com.github.javacliparser.FloatOption;
 import com.yahoo.labs.samoa.moa.core.ObjectRepository;
 import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
-
 /**
  * Drift detection method based in ADWIN. ADaptive sliding WINdow is a change
  * detector and estimator. It keeps a variable-length window of recently seen
  * items, with the property that the window has the maximal length statistically
  * consistent with the hypothesis "there has been no change in the average value
  * inside the window".
- *
- *
+ * 
+ * 
  * @author Albert Bifet (abifet at cs dot waikato dot ac dot nz)
  * @version $Revision: 7 $
  */

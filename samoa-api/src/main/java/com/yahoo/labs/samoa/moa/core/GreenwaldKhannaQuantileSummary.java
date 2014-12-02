@@ -27,7 +27,7 @@ import com.yahoo.labs.samoa.moa.AbstractMOAObject;
 
 /**
  * Class for representing summaries of Greenwald and Khanna quantiles.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

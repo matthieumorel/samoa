@@ -46,9 +46,11 @@ final public class ClusteringResultContentEvent implements ContentEvent {
 
     /**
      * Instantiates a new clustering result event.
-     *
-     * @param clustering the clustering result
-     * @param isLast is the last result
+     * 
+     * @param clustering
+     *            the clustering result
+     * @param isLast
+     *            is the last result
      */
     public ClusteringResultContentEvent(Clustering clustering, boolean isLast) {
         this.clustering = clustering;

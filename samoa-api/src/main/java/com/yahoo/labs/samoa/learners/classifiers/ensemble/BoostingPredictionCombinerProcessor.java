@@ -41,17 +41,18 @@ import java.util.Random;
 public class BoostingPredictionCombinerProcessor extends PredictionCombinerProcessor {
 
     private static final long serialVersionUID = -1606045723451191232L;
-    
-    //Weigths classifier
+
+    // Weigths classifier
     protected double[] scms;
 
-    //Weights instance
+    // Weights instance
     protected double[] swms;
 
     /**
      * On event.
-     *
-     * @param event the event
+     * 
+     * @param event
+     *            the event
      * @return true, if successful
      */
     @Override
@@ -60,14 +61,14 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
         ResultContentEvent inEvent = (ResultContentEvent) event;
         double[] prediction = inEvent.getClassVotes();
         int instanceIndex = (int) inEvent.getInstanceIndex();
-        
+
         addStatisticsforInstanceReceived(instanceIndex, inEvent.getClassifierIndex(), prediction, 1);
-        //Boosting
-        addPredictions(instanceIndex, inEvent, prediction);              
-               
+        // Boosting
+        addPredictions(instanceIndex, inEvent, prediction);
+
         if (inEvent.isLastEvent() || hasAllVotesArrivedInstance(instanceIndex)) {
             DoubleVector combinedVote = this.mapVotesforInstanceReceived.get(instanceIndex);
-            if (combinedVote == null){
+            if (combinedVote == null) {
                 combinedVote = new DoubleVector();
             }
             ResultContentEvent outContentEvent = new ResultContentEvent(inEvent.getInstanceIndex(),
@@ -76,18 +77,18 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
             outContentEvent.setEvaluationIndex(inEvent.getEvaluationIndex());
             outputStream.put(outContentEvent);
             clearStatisticsInstance(instanceIndex);
-            //Boosting
+            // Boosting
             computeBoosting(inEvent, instanceIndex);
             return true;
         }
         return false;
 
     }
-    
+
     protected Random random;
-    
+
     protected int trainingWeightSeenByModel;
-    
+
     @Override
     protected double getEnsembleMemberWeight(int i) {
         double em = this.swms[i] / (this.scms[i] + this.swms[i]);
@@ -97,7 +98,7 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
         double Bm = em / (1.0 - em);
         return Math.log(1.0 / Bm);
     }
-    
+
     @Override
     public void reset() {
         this.random = new Random();
@@ -110,7 +111,7 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
         int predictedClass = (int) mapPredictions.get(instanceIndex).getValue(i);
         return predictedClass == (int) inst.classValue();
     }
-    
+
     protected Map<Integer, DoubleVector> mapPredictions;
 
     private void addPredictions(int instanceIndex, ResultContentEvent inEvent, double[] prediction) {
@@ -118,7 +119,7 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
             this.mapPredictions = new HashMap<Integer, DoubleVector>();
         }
         DoubleVector predictions = this.mapPredictions.get(instanceIndex);
-        if (predictions == null){
+        if (predictions == null) {
             predictions = new DoubleVector();
         }
         predictions.setValue(inEvent.getClassifierIndex(), Utils.maxIndex(prediction));
@@ -127,7 +128,7 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
 
     private void computeBoosting(ResultContentEvent inEvent, int instanceIndex) {
         // Starts code for Boosting
-        //Send instances to train
+        // Send instances to train
         double lambda_d = 1.0;
         for (int i = 0; i < this.ensembleSize; i++) {
             double k = true ? lambda_d : MiscUtils.poisson(lambda_d, this.random);
@@ -135,16 +136,16 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
             if (k > 0.0) {
                 Instance weightedInst = (Instance) inst.copy();
                 weightedInst.setWeight(inst.weight() * k);
-                //this.ensemble[i].trainOnInstance(weightedInst);
+                // this.ensemble[i].trainOnInstance(weightedInst);
                 boolean isTraining = true;
                 boolean isTesting = false;
                 InstanceContentEvent instanceContentEvent = new InstanceContentEvent(
-                                inEvent.getInstanceIndex(), weightedInst, isTraining, isTesting);
+                        inEvent.getInstanceIndex(), weightedInst, isTraining, isTesting);
                 instanceContentEvent.setClassifierIndex(i);
-                instanceContentEvent.setEvaluationIndex(inEvent.getEvaluationIndex());	
+                instanceContentEvent.setEvaluationIndex(inEvent.getEvaluationIndex());
                 trainingStream.put(instanceContentEvent);
             }
-            if (this.correctlyClassifies(i, inst, instanceIndex) == true){
+            if (this.correctlyClassifies(i, inst, instanceIndex) == true) {
                 this.scms[i] += lambda_d;
                 lambda_d *= this.trainingWeightSeenByModel / (2 * this.scms[i]);
             } else {
@@ -153,26 +154,27 @@ public class BoostingPredictionCombinerProcessor extends PredictionCombinerProce
             }
         }
     }
-    
-    	/**
-	 * Gets the training stream.
-	 *
-	 * @return the training stream
-	 */
-	public Stream getTrainingStream() {
-		return trainingStream;
-	}
 
-	/**
-	 * Sets the training stream.
-	 *
-	 * @param trainingStream the new training stream
-	 */
-	public void setTrainingStream(Stream trainingStream) {
-		this.trainingStream = trainingStream;
-	}
-        
-        /** The training stream. */
-	private Stream trainingStream;
-    
+    /**
+     * Gets the training stream.
+     * 
+     * @return the training stream
+     */
+    public Stream getTrainingStream() {
+        return trainingStream;
+    }
+
+    /**
+     * Sets the training stream.
+     * 
+     * @param trainingStream
+     *            the new training stream
+     */
+    public void setTrainingStream(Stream trainingStream) {
+        this.trainingStream = trainingStream;
+    }
+
+    /** The training stream. */
+    private Stream trainingStream;
+
 }

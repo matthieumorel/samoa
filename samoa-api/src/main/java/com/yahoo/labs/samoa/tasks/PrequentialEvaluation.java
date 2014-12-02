@@ -49,8 +49,10 @@ import com.yahoo.labs.samoa.topology.Topology;
 import com.yahoo.labs.samoa.topology.TopologyBuilder;
 
 /**
- * Prequential Evaluation task is a scheme in evaluating performance of online classifiers which uses each instance for testing online classifiers model and
- * then it further uses the same instance for training the model(Test-then-train)
+ * Prequential Evaluation task is a scheme in evaluating performance of online
+ * classifiers which uses each instance for testing online classifiers model and
+ * then it further uses the same instance for training the
+ * model(Test-then-train)
  * 
  * @author Arinto Murdopo
  * 
@@ -61,33 +63,44 @@ public class PrequentialEvaluation implements Task, Configurable {
 
     private static Logger logger = LoggerFactory.getLogger(PrequentialEvaluation.class);
 
-    public ClassOption learnerOption = new ClassOption("learner", 'l', "Classifier to train.", Learner.class, VerticalHoeffdingTree.class.getName());
+    public ClassOption learnerOption = new ClassOption("learner", 'l', "Classifier to train.", Learner.class,
+            VerticalHoeffdingTree.class.getName());
 
-    public ClassOption streamTrainOption = new ClassOption("trainStream", 's', "Stream to learn from.", InstanceStream.class,
+    public ClassOption streamTrainOption = new ClassOption("trainStream", 's', "Stream to learn from.",
+            InstanceStream.class,
             RandomTreeGenerator.class.getName());
 
-    public ClassOption evaluatorOption = new ClassOption("evaluator", 'e', "Classification performance evaluation method.",
+    public ClassOption evaluatorOption = new ClassOption("evaluator", 'e',
+            "Classification performance evaluation method.",
             PerformanceEvaluator.class, BasicClassificationPerformanceEvaluator.class.getName());
 
-    public IntOption instanceLimitOption = new IntOption("instanceLimit", 'i', "Maximum number of instances to test/train on  (-1 = no limit).", 1000000, -1,
+    public IntOption instanceLimitOption = new IntOption("instanceLimit", 'i',
+            "Maximum number of instances to test/train on  (-1 = no limit).", 1000000, -1,
             Integer.MAX_VALUE);
 
-    public IntOption timeLimitOption = new IntOption("timeLimit", 't', "Maximum number of seconds to test/train for (-1 = no limit).", -1, -1,
+    public IntOption timeLimitOption = new IntOption("timeLimit", 't',
+            "Maximum number of seconds to test/train for (-1 = no limit).", -1, -1,
             Integer.MAX_VALUE);
 
-    public IntOption sampleFrequencyOption = new IntOption("sampleFrequency", 'f', "How many instances between samples of the learning performance.", 100000,
+    public IntOption sampleFrequencyOption = new IntOption("sampleFrequency", 'f',
+            "How many instances between samples of the learning performance.", 100000,
             0, Integer.MAX_VALUE);
 
-    public StringOption evaluationNameOption = new StringOption("evalutionName", 'n', "Identifier of the evaluation", "Prequential_"
-            + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+    public StringOption evaluationNameOption = new StringOption("evalutionName", 'n', "Identifier of the evaluation",
+            "Prequential_"
+                    + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 
-    public FileOption dumpFileOption = new FileOption("dumpFile", 'd', "File to append intermediate csv results to", null, "csv", true);
+    public FileOption dumpFileOption = new FileOption("dumpFile", 'd', "File to append intermediate csv results to",
+            null, "csv", true);
 
     // Default=0: no delay/waiting
-    public IntOption sourceDelayOption = new IntOption("sourceDelay", 'w', "How many microseconds between injections of two instances.", 0, 0, Integer.MAX_VALUE);
-    // Batch size to delay the incoming stream: delay of x milliseconds after each batch
-    public IntOption batchDelayOption = new IntOption("delayBatchSize", 'b', "The delay batch size: delay of x milliseconds after each batch ", 1, 1, Integer.MAX_VALUE);
-    
+    public IntOption sourceDelayOption = new IntOption("sourceDelay", 'w',
+            "How many microseconds between injections of two instances.", 0, 0, Integer.MAX_VALUE);
+    // Batch size to delay the incoming stream: delay of x milliseconds after
+    // each batch
+    public IntOption batchDelayOption = new IntOption("delayBatchSize", 'b',
+            "The delay batch size: delay of x milliseconds after each batch ", 1, 1, Integer.MAX_VALUE);
+
     private PrequentialSourceProcessor preqSource;
 
     // private PrequentialSourceTopologyStarter preqStarter;
@@ -127,7 +140,8 @@ public class PrequentialEvaluation implements Task, Configurable {
             logger.debug("Sucessfully initializing SAMOA topology with name {}", evaluationNameOption.getValue());
         }
 
-        // instantiate PrequentialSourceProcessor and its output stream (sourcePiOutputStream)
+        // instantiate PrequentialSourceProcessor and its output stream
+        // (sourcePiOutputStream)
         preqSource = new PrequentialSourceProcessor();
         preqSource.setStreamSource((InstanceStream) this.streamTrainOption.getValue());
         preqSource.setMaxNumInstances(instanceLimitOption.getValue());
@@ -136,7 +150,8 @@ public class PrequentialEvaluation implements Task, Configurable {
         builder.addEntranceProcessor(preqSource);
         logger.debug("Sucessfully instantiating PrequentialSourceProcessor");
 
-        // preqStarter = new PrequentialSourceTopologyStarter(preqSource, instanceLimitOption.getValue());
+        // preqStarter = new PrequentialSourceTopologyStarter(preqSource,
+        // instanceLimitOption.getValue());
         // sourcePi = builder.createEntrancePi(preqSource, preqStarter);
         // sourcePiOutputStream = builder.createStream(sourcePi);
 
@@ -151,7 +166,7 @@ public class PrequentialEvaluation implements Task, Configurable {
 
         PerformanceEvaluator evaluatorOptionValue = (PerformanceEvaluator) this.evaluatorOption.getValue();
         if (!PrequentialEvaluation.isLearnerAndEvaluatorCompatible(classifier, evaluatorOptionValue)) {
-        	evaluatorOptionValue = getDefaultPerformanceEvaluatorForLearner(classifier);
+            evaluatorOptionValue = getDefaultPerformanceEvaluatorForLearner(classifier);
         }
         evaluator = new EvaluatorProcessor.Builder(evaluatorOptionValue)
                 .samplingFrequency(sampleFrequencyOption.getValue()).dumpFile(dumpFileOption.getFile()).build();
@@ -159,10 +174,10 @@ public class PrequentialEvaluation implements Task, Configurable {
         // evaluatorPi = builder.createPi(evaluator);
         // evaluatorPi.connectInputShuffleStream(evaluatorPiInputStream);
         builder.addProcessor(evaluator);
-        for (Stream evaluatorPiInputStream:classifier.getResultStreams()) {
-        	builder.connectInputShuffleStream(evaluatorPiInputStream, evaluator);
+        for (Stream evaluatorPiInputStream : classifier.getResultStreams()) {
+            builder.connectInputShuffleStream(evaluatorPiInputStream, evaluator);
         }
-        
+
         logger.debug("Sucessfully instantiating EvaluatorProcessor");
 
         prequentialTopology = builder.build();
@@ -185,27 +200,29 @@ public class PrequentialEvaluation implements Task, Configurable {
     public Topology getTopology() {
         return prequentialTopology;
     }
+
     //
     // @Override
     // public TopologyStarter getTopologyStarter() {
     // return this.preqStarter;
     // }
-    
+
     private static boolean isLearnerAndEvaluatorCompatible(Learner learner, PerformanceEvaluator evaluator) {
-    	if (learner instanceof RegressionLearner && evaluator instanceof RegressionPerformanceEvaluator) {
-    		return true;
-    	}
-    	if (learner instanceof ClassificationLearner && evaluator instanceof ClassificationPerformanceEvaluator) {
-    		return true;
-    	}
-    	return false;
+        if (learner instanceof RegressionLearner && evaluator instanceof RegressionPerformanceEvaluator) {
+            return true;
+        }
+        if (learner instanceof ClassificationLearner && evaluator instanceof ClassificationPerformanceEvaluator) {
+            return true;
+        }
+        return false;
     }
-    
+
     private static PerformanceEvaluator getDefaultPerformanceEvaluatorForLearner(Learner learner) {
-    	if (learner instanceof RegressionLearner) {
-    		return new BasicRegressionPerformanceEvaluator();
-    	}
-    	// Default to BasicClassificationPerformanceEvaluator for all other cases
-    	return new BasicClassificationPerformanceEvaluator();
+        if (learner instanceof RegressionLearner) {
+            return new BasicRegressionPerformanceEvaluator();
+        }
+        // Default to BasicClassificationPerformanceEvaluator for all other
+        // cases
+        return new BasicClassificationPerformanceEvaluator();
     }
 }

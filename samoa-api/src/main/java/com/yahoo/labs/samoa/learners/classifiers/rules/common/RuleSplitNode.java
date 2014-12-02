@@ -27,10 +27,10 @@ import com.yahoo.labs.samoa.learners.classifiers.trees.SplitNode;
 import com.yahoo.labs.samoa.instances.Instance;
 
 /**
- * Represent a feature of rules (an element of ruleś nodeList).
+ * Represent a feature of rules (an element of rule nodeList).
  * 
  * @author Anh Thu Vu
- *
+ * 
  */
 public class RuleSplitNode extends SplitNode {
 
@@ -47,15 +47,17 @@ public class RuleSplitNode extends SplitNode {
      * Create a new RuleSplitNode
      */
     public RuleSplitNode() {
-    	this(null, new double[0]);
+        this(null, new double[0]);
     }
+
     public RuleSplitNode(InstanceConditionalTest splitTest, double[] classObservations) {
         super(splitTest, classObservations);
     }
-    
+
     public RuleSplitNode getACopy() {
-    	InstanceConditionalTest splitTest = new NumericAttributeBinaryRulePredicate((NumericAttributeBinaryRulePredicate) this.getSplitTest());
-		return new RuleSplitNode(splitTest, this.getObservedClassDistribution());
+        InstanceConditionalTest splitTest = new NumericAttributeBinaryRulePredicate(
+                (NumericAttributeBinaryRulePredicate) this.getSplitTest());
+        return new RuleSplitNode(splitTest, this.getObservedClassDistribution());
     }
 
     public boolean evaluate(Instance instance) {

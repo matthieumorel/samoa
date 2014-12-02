@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Class that stores an array of evaluation measurements.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

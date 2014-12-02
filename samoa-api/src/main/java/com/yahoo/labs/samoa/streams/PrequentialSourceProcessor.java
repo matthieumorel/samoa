@@ -38,7 +38,8 @@ import com.yahoo.labs.samoa.moa.options.AbstractOptionHandler;
 import com.yahoo.labs.samoa.moa.streams.InstanceStream;
 
 /**
- * Prequential Source Processor is the processor for Prequential Evaluation Task.
+ * Prequential Source Processor is the processor for Prequential Evaluation
+ * Task.
  * 
  * @author Arinto Murdopo
  * 
@@ -56,17 +57,17 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
     private int numInstanceSent = 0;
 
     protected InstanceStream sourceStream;
-    
+
     /*
-	 * ScheduledExecutorService to schedule sending events after each delay interval.
-	 * It is expected to have only one event in the queue at a time, so we need only 
-	 * one thread in the pool.
-	 */
-	private transient ScheduledExecutorService timer;
-	private transient ScheduledFuture<?> schedule = null;
-	private int readyEventIndex = 1; // No waiting for the first event
-	private int delay = 0;
-	private int batchSize = 1;
+     * ScheduledExecutorService to schedule sending events after each delay
+     * interval. It is expected to have only one event in the queue at a time,
+     * so we need only one thread in the pool.
+     */
+    private transient ScheduledExecutorService timer;
+    private transient ScheduledFuture<?> schedule = null;
+    private int readyEventIndex = 1; // No waiting for the first event
+    private int delay = 0;
+    private int batchSize = 1;
     private boolean finished = false;
 
     @Override
@@ -75,16 +76,17 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
         // of source processor does not need this method
         return false;
     }
-    
+
     @Override
     public boolean isFinished() {
-    	return finished;
+        return finished;
     }
 
     @Override
     public boolean hasNext() {
-    	if (isFinished()) return false;
-    	return (delay <= 0 || numInstanceSent < readyEventIndex);
+        if (isFinished())
+            return false;
+        return (delay <= 0 || numInstanceSent < readyEventIndex);
     }
 
     private boolean hasReachedEndOfStream() {
@@ -95,7 +97,7 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
     public ContentEvent nextEvent() {
         InstanceContentEvent contentEvent = null;
         if (hasReachedEndOfStream()) {
-        	contentEvent = new InstanceContentEvent(-1, firstInstance, false, true);
+            contentEvent = new InstanceContentEvent(-1, firstInstance, false, true);
             contentEvent.setLast(true);
             // set finished status _after_ tagging last event
             finished = true;
@@ -103,7 +105,7 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
         else if (hasNext()) {
             numInstanceSent++;
             contentEvent = new InstanceContentEvent(numInstanceSent, nextInstance(), true, true);
-            
+
             // first call to this method will trigger the timer
             if (schedule == null && delay > 0) {
                 schedule = timer.scheduleWithFixedDelay(new DelayTimeoutHandler(this), delay, delay,
@@ -112,14 +114,14 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
         }
         return contentEvent;
     }
-    
-	private void increaseReadyEventIndex() {
-		readyEventIndex+=batchSize;
-		// if we exceed the max, cancel the timer
-		if (schedule != null && isFinished()) {
-			schedule.cancel(false);
-		}
-	}
+
+    private void increaseReadyEventIndex() {
+        readyEventIndex += batchSize;
+        // if we exceed the max, cancel the timer
+        if (schedule != null && isFinished()) {
+            schedule.cancel(false);
+        }
+    }
 
     @Override
     public void onCreate(int id) {
@@ -139,24 +141,26 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
         return newProcessor;
     }
 
-//    /**
-//     * Method to send instances via input stream
-//     * 
-//     * @param inputStream
-//     * @param numberInstances
-//     */
-//    public void sendInstances(Stream inputStream, int numberInstances) {
-//        int numInstanceSent = 0;
-//        initStreamSource(sourceStream);
-//
-//        while (streamSource.hasMoreInstances() && numInstanceSent < numberInstances) {
-//            numInstanceSent++;
-//            InstanceContentEvent contentEvent = new InstanceContentEvent(numInstanceSent, nextInstance(), true, true);
-//            inputStream.put(contentEvent);
-//        }
-//
-//        sendEndEvaluationInstance(inputStream);
-//    }
+    // /**
+    // * Method to send instances via input stream
+    // *
+    // * @param inputStream
+    // * @param numberInstances
+    // */
+    // public void sendInstances(Stream inputStream, int numberInstances) {
+    // int numInstanceSent = 0;
+    // initStreamSource(sourceStream);
+    //
+    // while (streamSource.hasMoreInstances() && numInstanceSent <
+    // numberInstances) {
+    // numInstanceSent++;
+    // InstanceContentEvent contentEvent = new
+    // InstanceContentEvent(numInstanceSent, nextInstance(), true, true);
+    // inputStream.put(contentEvent);
+    // }
+    //
+    // sendEndEvaluationInstance(inputStream);
+    // }
 
     public StreamSource getStreamSource() {
         return streamSource;
@@ -182,11 +186,12 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
         }
     }
 
-//    private void sendEndEvaluationInstance(Stream inputStream) {
-//        InstanceContentEvent contentEvent = new InstanceContentEvent(-1, firstInstance, false, true);
-//        contentEvent.setLast(true);
-//        inputStream.put(contentEvent);
-//    }
+    // private void sendEndEvaluationInstance(Stream inputStream) {
+    // InstanceContentEvent contentEvent = new InstanceContentEvent(-1,
+    // firstInstance, false, true);
+    // contentEvent.setLast(true);
+    // inputStream.put(contentEvent);
+    // }
 
     private void initStreamSource(InstanceStream stream) {
         if (stream instanceof AbstractOptionHandler) {
@@ -200,33 +205,33 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
     public void setMaxNumInstances(int value) {
         numberInstances = value;
     }
-    
-    public int getMaxNumInstances() {
-    	return this.numberInstances;
-    }
-    
-	public void setSourceDelay(int delay) {
-		this.delay = delay;
-	}
 
-	public int getSourceDelay() {
-		return this.delay;
-	}
-	
-	public void setDelayBatchSize(int batch) {
-		this.batchSize = batch;
-	}
-	
-	private class DelayTimeoutHandler implements Runnable {
-    	
-    	private PrequentialSourceProcessor processor;
-    	
-    	public DelayTimeoutHandler(PrequentialSourceProcessor processor) {
-    		this.processor = processor;
-    	}
-    	
-    	public void run() {
-    		processor.increaseReadyEventIndex();
-    	}
+    public int getMaxNumInstances() {
+        return this.numberInstances;
+    }
+
+    public void setSourceDelay(int delay) {
+        this.delay = delay;
+    }
+
+    public int getSourceDelay() {
+        return this.delay;
+    }
+
+    public void setDelayBatchSize(int batch) {
+        this.batchSize = batch;
+    }
+
+    private class DelayTimeoutHandler implements Runnable {
+
+        private PrequentialSourceProcessor processor;
+
+        public DelayTimeoutHandler(PrequentialSourceProcessor processor) {
+            this.processor = processor;
+        }
+
+        public void run() {
+            processor.increaseReadyEventIndex();
+        }
     }
 }

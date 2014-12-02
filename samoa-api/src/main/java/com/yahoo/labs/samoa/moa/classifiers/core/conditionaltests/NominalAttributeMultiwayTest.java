@@ -24,8 +24,9 @@ import com.yahoo.labs.samoa.instances.InstancesHeader;
 import com.yahoo.labs.samoa.instances.Instance;
 
 /**
- * Nominal multi way conditional test for instances to use to split nodes in Hoeffding trees.
- *
+ * Nominal multi way conditional test for instances to use to split nodes in
+ * Hoeffding trees.
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -41,8 +42,8 @@ public class NominalAttributeMultiwayTest extends InstanceConditionalTest {
 
     @Override
     public int branchForInstance(Instance inst) {
-        int instAttIndex = this.attIndex  ; //< inst.classIndex() ? this.attIndex
-                //: this.attIndex + 1;
+        int instAttIndex = this.attIndex; // < inst.classIndex() ? this.attIndex
+        // : this.attIndex + 1;
         return inst.isMissing(instAttIndex) ? -1 : (int) inst.value(instAttIndex);
     }
 
@@ -51,7 +52,7 @@ public class NominalAttributeMultiwayTest extends InstanceConditionalTest {
         return InstancesHeader.getAttributeNameString(context, this.attIndex)
                 + " = "
                 + InstancesHeader.getNominalValueString(context, this.attIndex,
-                branch);
+                        branch);
     }
 
     @Override
@@ -66,6 +67,6 @@ public class NominalAttributeMultiwayTest extends InstanceConditionalTest {
 
     @Override
     public int[] getAttsTestDependsOn() {
-        return new int[]{this.attIndex};
+        return new int[] { this.attIndex };
     }
 }

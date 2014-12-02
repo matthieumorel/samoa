@@ -21,12 +21,13 @@ package com.yahoo.labs.samoa.moa;
  */
 
 import com.yahoo.labs.samoa.moa.core.SerializeUtils;
+
 //import moa.core.SizeOf;
 
 /**
- * Abstract MOA Object. All classes that are serializable, copiable,
- * can measure its size, and can give a description, extend this class.
- *
+ * Abstract MOA Object. All classes that are serializable, copiable, can measure
+ * its size, and can give a description, extend this class.
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -44,7 +45,7 @@ public abstract class AbstractMOAObject implements MOAObject {
 
     /**
      * Returns a description of the object.
-     *
+     * 
      * @return a description of the object
      */
     @Override
@@ -56,8 +57,9 @@ public abstract class AbstractMOAObject implements MOAObject {
 
     /**
      * This method produces a copy of an object.
-     *
-     * @param obj object to copy
+     * 
+     * @param obj
+     *            object to copy
      * @return a copy of the object
      */
     public static MOAObject copy(MOAObject obj) {
@@ -70,11 +72,12 @@ public abstract class AbstractMOAObject implements MOAObject {
 
     /**
      * Gets the memory size of an object.
-     *
-     * @param obj object to measure the memory size
+     * 
+     * @param obj
+     *            object to measure the memory size
      * @return the memory size of this object
      */
     public static int measureByteSize(MOAObject obj) {
-        return 0; //(int) SizeOf.fullSizeOf(obj);
+        return 0; // (int) SizeOf.fullSizeOf(obj);
     }
 }

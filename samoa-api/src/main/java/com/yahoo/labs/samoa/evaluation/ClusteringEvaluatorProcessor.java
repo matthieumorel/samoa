@@ -265,14 +265,16 @@ public class ClusteringEvaluatorProcessor implements Processor {
         long experimentEnd = System.nanoTime();
         long totalExperimentTime = TimeUnit.SECONDS.convert(experimentEnd - experimentStart, TimeUnit.NANOSECONDS);
         logger.info("total evaluation time: {} seconds for {} instances", totalExperimentTime, totalCount);
-        // logger.info("average throughput rate: {} instances/seconds", (totalCount/totalExperimentTime));
+        // logger.info("average throughput rate: {} instances/seconds",
+        // (totalCount/totalExperimentTime));
     }
 
     private void printMeasures() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < measures.length; i++) {
 
-            sb.append("Mean ").append(measures[i].getClass().getSimpleName() + ":" + measures[i].getNumMeasures()).append("\n");
+            sb.append("Mean ").append(measures[i].getClass().getSimpleName() + ":" + measures[i].getNumMeasures())
+                    .append("\n");
             for (int j = 0; j < measures[i].getNumMeasures(); j++) {
                 sb.append("[" + measures[i].getName(j) + "=" + measures[i].getLastValue(j)).append("] \n");
 

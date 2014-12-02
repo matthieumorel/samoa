@@ -28,7 +28,7 @@ import com.yahoo.labs.samoa.instances.Instance;
 
 /**
  * Majority class learner. This is the simplest classifier.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */

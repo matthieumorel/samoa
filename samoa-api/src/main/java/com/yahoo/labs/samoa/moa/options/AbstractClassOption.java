@@ -29,7 +29,7 @@ import com.yahoo.labs.samoa.moa.tasks.TaskMonitor;
 
 /**
  * Abstract class option.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision$
  */
@@ -37,10 +37,10 @@ public abstract class AbstractClassOption extends AbstractOption {
 
     private static final long serialVersionUID = 1L;
 
-    /** The prefix text to use to indicate file.  */
+    /** The prefix text to use to indicate file. */
     public static final String FILE_PREFIX_STRING = "file:";
 
-    /** The prefix text to use to indicate inmem.  */
+    /** The prefix text to use to indicate inmem. */
     public static final String INMEM_PREFIX_STRING = "inmem:";
 
     /** The current object */
@@ -59,12 +59,17 @@ public abstract class AbstractClassOption extends AbstractOption {
      * Creates a new instance of an abstract option given its class name,
      * command line interface text, its purpose, its class type and its default
      * command line interface text.
-     *
-     * @param name the name of this option
-     * @param cliChar the command line interface text
-     * @param purpose the text describing the purpose of this option
-     * @param requiredType the class type
-     * @param defaultCLIString the default command line interface text
+     * 
+     * @param name
+     *            the name of this option
+     * @param cliChar
+     *            the command line interface text
+     * @param purpose
+     *            the text describing the purpose of this option
+     * @param requiredType
+     *            the class type
+     * @param defaultCLIString
+     *            the default command line interface text
      */
     public AbstractClassOption(String name, char cliChar, String purpose,
             Class<?> requiredType, String defaultCLIString) {
@@ -73,15 +78,21 @@ public abstract class AbstractClassOption extends AbstractOption {
 
     /**
      * Creates a new instance of an abstract option given its class name,
-     * command line interface text, its purpose, its class type, default
-     * command line interface text, and its null text.
-     *
-     * @param name the name of this option
-     * @param cliChar the command line interface text
-     * @param purpose the text describing the purpose of this option
-     * @param requiredType the class type
-     * @param defaultCLIString the default command line interface text
-     * @param nullString the null text
+     * command line interface text, its purpose, its class type, default command
+     * line interface text, and its null text.
+     * 
+     * @param name
+     *            the name of this option
+     * @param cliChar
+     *            the command line interface text
+     * @param purpose
+     *            the text describing the purpose of this option
+     * @param requiredType
+     *            the class type
+     * @param defaultCLIString
+     *            the default command line interface text
+     * @param nullString
+     *            the null text
      */
     public AbstractClassOption(String name, char cliChar, String purpose,
             Class<?> requiredType, String defaultCLIString, String nullString) {
@@ -94,8 +105,9 @@ public abstract class AbstractClassOption extends AbstractOption {
 
     /**
      * Sets current object.
-     *
-     * @param obj the object to set as current.
+     * 
+     * @param obj
+     *            the object to set as current.
      */
     public void setCurrentObject(Object obj) {
         if (((obj == null) && (this.nullString != null))
@@ -111,7 +123,7 @@ public abstract class AbstractClassOption extends AbstractOption {
 
     /**
      * Returns the current object.
-     *
+     * 
      * @return the current object
      */
     public Object getPreMaterializedObject() {
@@ -120,7 +132,7 @@ public abstract class AbstractClassOption extends AbstractOption {
 
     /**
      * Gets the class type of this option.
-     *
+     * 
      * @return the class type of this option
      */
     public Class<?> getRequiredType() {
@@ -129,7 +141,7 @@ public abstract class AbstractClassOption extends AbstractOption {
 
     /**
      * Gets the null string of this option.
-     *
+     * 
      * @return the null string of this option
      */
     public String getNullString() {
@@ -139,8 +151,10 @@ public abstract class AbstractClassOption extends AbstractOption {
     /**
      * Gets a materialized object of this option.
      * 
-     * @param monitor the task monitor to use
-     * @param repository the object repository to use
+     * @param monitor
+     *            the task monitor to use
+     * @param repository
+     *            the object repository to use
      * @return the materialized object
      */
     public Object materializeObject(TaskMonitor monitor,
@@ -176,9 +190,9 @@ public abstract class AbstractClassOption extends AbstractOption {
         } else {
             throw new RuntimeException(
                     "Could not materialize object of required type "
-                    + this.requiredType.getName() + ", found "
-                    + this.currentValue.getClass().getName()
-                    + " instead.");
+                            + this.requiredType.getName() + ", found "
+                            + this.currentValue.getClass().getName()
+                            + " instead.");
         }
     }
 
@@ -189,9 +203,11 @@ public abstract class AbstractClassOption extends AbstractOption {
 
     /**
      * Gets the command line interface text of the class.
-     *
-     * @param aClass the class
-     * @param requiredType the class type
+     * 
+     * @param aClass
+     *            the class
+     * @param requiredType
+     *            the class type
      * @return the command line interface text of the class
      */
     public static String classToCLIString(Class<?> aClass, Class<?> requiredType) {
@@ -217,14 +233,16 @@ public abstract class AbstractClassOption extends AbstractOption {
     @Override
     public abstract void setValueViaCLIString(String s);
 
-    //@Override
-    //public abstract JComponent getEditComponent();
+    // @Override
+    // public abstract JComponent getEditComponent();
 
     /**
      * Gets the class name without its package name prefix.
-     *
-     * @param className the name of the class
-     * @param expectedType the type of the class
+     * 
+     * @param className
+     *            the name of the class
+     * @param expectedType
+     *            the type of the class
      * @return the class name without its package name prefix
      */
     public static String stripPackagePrefix(String className, Class<?> expectedType) {

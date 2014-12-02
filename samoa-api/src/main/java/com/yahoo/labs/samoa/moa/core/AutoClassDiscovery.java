@@ -36,7 +36,7 @@ import java.util.jar.JarFile;
 
 /**
  * Class for discovering classes via reflection in the java class path.
- *
+ * 
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -48,14 +48,15 @@ public class AutoClassDiscovery {
         String[] cached = cachedClassNames.get(packageNameToSearch);
         if (cached == null) {
             HashSet<String> classNames = new HashSet<String>();
-            /*StringTokenizer pathTokens = new StringTokenizer(System
-            .getProperty("java.class.path"), File.pathSeparator);*/
+            /*
+             * StringTokenizer pathTokens = new StringTokenizer(System
+             * .getProperty("java.class.path"), File.pathSeparator);
+             */
             String packageDirName = packageNameToSearch.replace('.',
                     File.separatorChar);
             String packageJarName = packageNameToSearch.length() > 0 ? (packageNameToSearch.replace('.', '/') + "/")
                     : "";
             String part = "";
-
 
             AutoClassDiscovery adc = new AutoClassDiscovery();
             URLClassLoader sysLoader = (URLClassLoader) adc.getClass().getClassLoader();
@@ -93,7 +94,7 @@ public class AutoClassDiscovery {
                                             '.');
                                     classNames.add(relativeName.substring(0,
                                             relativeName.length()
-                                            - ".class".length()));
+                                                    - ".class".length()));
                                 }
                             }
                         }
@@ -103,39 +104,24 @@ public class AutoClassDiscovery {
                 }
             }
 
-            /*while (pathTokens.hasMoreElements()) {
-            String pathToSearch = pathTokens.nextElement().toString();
-            if (pathToSearch.endsWith(".jar")) {
-            try {
-            JarFile jar = new JarFile(pathToSearch);
-            Enumeration<JarEntry> jarEntries = jar.entries();
-            while (jarEntries.hasMoreElements()) {
-            String jarEntry = jarEntries.nextElement()
-            .getName();
-            if (jarEntry.startsWith(packageJarName)) {
-            String relativeName = jarEntry
-            .substring(packageJarName.length());
-            if (relativeName.endsWith(".class")) {
-            relativeName = relativeName.replace('/',
-            '.');
-            classNames.add(relativeName.substring(0,
-            relativeName.length()
-            - ".class".length()));
-            }
-            }
-            }
-            } catch (IOException ignored) {
-            // ignore unreadable files
-            }
-            } else {
-            File root = new File(pathToSearch + File.separatorChar
-            + packageDirName);
-            String[] names = findClassesInDirectoryRecursive(root, "");
-            for (String name : names) {
-            classNames.add(name);
-            }
-            }
-            } */
+            /*
+             * while (pathTokens.hasMoreElements()) { String pathToSearch =
+             * pathTokens.nextElement().toString(); if
+             * (pathToSearch.endsWith(".jar")) { try { JarFile jar = new
+             * JarFile(pathToSearch); Enumeration<JarEntry> jarEntries =
+             * jar.entries(); while (jarEntries.hasMoreElements()) { String
+             * jarEntry = jarEntries.nextElement() .getName(); if
+             * (jarEntry.startsWith(packageJarName)) { String relativeName =
+             * jarEntry .substring(packageJarName.length()); if
+             * (relativeName.endsWith(".class")) { relativeName =
+             * relativeName.replace('/', '.');
+             * classNames.add(relativeName.substring(0, relativeName.length() -
+             * ".class".length())); } } } } catch (IOException ignored) { //
+             * ignore unreadable files } } else { File root = new
+             * File(pathToSearch + File.separatorChar + packageDirName);
+             * String[] names = findClassesInDirectoryRecursive(root, ""); for
+             * (String name : names) { classNames.add(name); } } }
+             */
             cached = classNames.toArray(new String[classNames.size()]);
             Arrays.sort(cached);
             cachedClassNames.put(packageNameToSearch, cached);
@@ -152,7 +138,7 @@ public class AutoClassDiscovery {
                 if (string.endsWith(".class")) {
                     classNames.add(packagePath
                             + string.substring(0, string.length()
-                            - ".class".length()));
+                                    - ".class".length()));
                 } else {
                     File testDir = new File(root.getPath() + File.separatorChar
                             + string);

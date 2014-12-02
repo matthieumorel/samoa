@@ -41,10 +41,14 @@ public class StormProcessingItemTest {
     private static final int PARRALLELISM_HINT_2 = 2;
     private static final int PARRALLELISM_HINT_4 = 4;
     private static final String ID = "id";
-    @Tested private StormProcessingItem pi;
-    @Mocked private Processor processor;
-    @Mocked private StormTopology topology;
-    @Mocked private TopologyBuilder stormBuilder = new TopologyBuilder();
+    @Tested
+    private StormProcessingItem pi;
+    @Mocked
+    private Processor processor;
+    @Mocked
+    private StormTopology topology;
+    @Mocked
+    private TopologyBuilder stormBuilder = new TopologyBuilder();
 
     @Before
     public void setUp() {
@@ -64,7 +68,8 @@ public class StormProcessingItemTest {
             }
         };
 
-        pi.addToTopology(topology, PARRALLELISM_HINT_4); // this parallelism hint is ignored
+        pi.addToTopology(topology, PARRALLELISM_HINT_4); // this parallelism
+                                                         // hint is ignored
 
         new Verifications() {
             {

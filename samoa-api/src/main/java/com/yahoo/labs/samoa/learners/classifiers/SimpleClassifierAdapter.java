@@ -30,9 +30,9 @@ import com.yahoo.labs.samoa.instances.InstancesHeader;
 import com.yahoo.labs.samoa.moa.classifiers.functions.MajorityClass;
 
 /**
- *
+ * 
  * Base class for adapting external classifiers.
- *
+ * 
  */
 public class SimpleClassifierAdapter implements LocalLearner, Configurable {
 
@@ -40,19 +40,20 @@ public class SimpleClassifierAdapter implements LocalLearner, Configurable {
      *
      */
     private static final long serialVersionUID = 4372366401338704353L;
-    
+
     public ClassOption learnerOption = new ClassOption("learner", 'l',
-            "Classifier to train.", com.yahoo.labs.samoa.moa.classifiers.Classifier.class, MajorityClass.class.getName());
+            "Classifier to train.", com.yahoo.labs.samoa.moa.classifiers.Classifier.class,
+            MajorityClass.class.getName());
     /**
      * The learner.
      */
     protected com.yahoo.labs.samoa.moa.classifiers.Classifier learner;
-    
+
     /**
      * The is init.
      */
     protected Boolean isInit;
-    
+
     /**
      * The dataset.
      */
@@ -65,9 +66,11 @@ public class SimpleClassifierAdapter implements LocalLearner, Configurable {
 
     /**
      * Instantiates a new learner.
-     *
-     * @param learner the learner
-     * @param dataset the dataset
+     * 
+     * @param learner
+     *            the learner
+     * @param dataset
+     *            the dataset
      */
     public SimpleClassifierAdapter(com.yahoo.labs.samoa.moa.classifiers.Classifier learner, Instances dataset) {
         this.learner = learner.copy();
@@ -77,19 +80,21 @@ public class SimpleClassifierAdapter implements LocalLearner, Configurable {
 
     /**
      * Instantiates a new learner.
-     *
-     * @param learner the learner
-     * @param dataset the dataset
+     * 
+     * @param learner
+     *            the learner
+     * @param dataset
+     *            the dataset
      */
     public SimpleClassifierAdapter() {
         this.learner = ((com.yahoo.labs.samoa.moa.classifiers.Classifier) this.learnerOption.getValue()).copy();
         this.isInit = false;
-        //this.dataset = dataset;
+        // this.dataset = dataset;
     }
 
     /**
      * Creates a new learner object.
-     *
+     * 
      * @return the learner
      */
     @Override
@@ -103,8 +108,9 @@ public class SimpleClassifierAdapter implements LocalLearner, Configurable {
 
     /**
      * Trains this classifier incrementally using the given instance.
-     *
-     * @param inst the instance to be used for training
+     * 
+     * @param inst
+     *            the instance to be used for training
      */
     @Override
     public void trainOnInstance(Instance inst) {
@@ -123,17 +129,18 @@ public class SimpleClassifierAdapter implements LocalLearner, Configurable {
     /**
      * Predicts the class memberships for a given instance. If an instance is
      * unclassified, the returned array elements must be all zero.
-     *
-     * @param inst the instance to be classified
+     * 
+     * @param inst
+     *            the instance to be classified
      * @return an array containing the estimated membership probabilities of the
-     * test instance in each class
+     *         test instance in each class
      */
     @Override
     public double[] getVotesForInstance(Instance inst) {
         double[] ret;
         inst.setDataset(dataset);
         if (this.isInit == false) {
-           ret = new double[dataset.numClasses()];
+            ret = new double[dataset.numClasses()];
         } else {
             ret = learner.getVotesForInstance(inst);
         }
@@ -143,7 +150,7 @@ public class SimpleClassifierAdapter implements LocalLearner, Configurable {
     /**
      * Resets this classifier. It must be similar to starting a new classifier
      * from scratch.
-     *
+     * 
      */
     @Override
     public void resetLearning() {

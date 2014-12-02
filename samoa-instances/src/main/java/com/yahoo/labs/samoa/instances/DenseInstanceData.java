@@ -25,23 +25,23 @@ package com.yahoo.labs.samoa.instances;
  */
 
 /**
- *
+ * 
  * @author abifet
  */
-public class DenseInstanceData implements InstanceData{
+public class DenseInstanceData implements InstanceData {
 
     public DenseInstanceData(double[] array) {
-       this.attributeValues = array;
+        this.attributeValues = array;
     }
-    
+
     public DenseInstanceData(int length) {
-       this.attributeValues = new double[length];
+        this.attributeValues = new double[length];
     }
-    
+
     public DenseInstanceData() {
-       this(0);
+        this(0);
     }
-    
+
     protected double[] attributeValues;
 
     @Override
@@ -56,7 +56,7 @@ public class DenseInstanceData implements InstanceData{
 
     @Override
     public boolean isMissing(int indexAttribute) {
-       return Double.isNaN(this.value(indexAttribute));
+        return Double.isNaN(this.value(indexAttribute));
     }
 
     @Override
@@ -79,10 +79,10 @@ public class DenseInstanceData implements InstanceData{
         return isMissing(indexAttribute);
     }
 
-    /*@Override
-    public double value(Attribute attribute) {
-        return value(attribute.index());
-    }*/
+    /*
+     * @Override public double value(Attribute attribute) { return
+     * value(attribute.index()); }
+     */
 
     @Override
     public double[] toDoubleArray() {
@@ -93,5 +93,5 @@ public class DenseInstanceData implements InstanceData{
     public void setValue(int attributeIndex, double d) {
         this.attributeValues[attributeIndex] = d;
     }
-    
+
 }

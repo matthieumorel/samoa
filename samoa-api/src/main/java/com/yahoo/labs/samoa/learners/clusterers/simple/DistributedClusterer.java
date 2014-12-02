@@ -51,36 +51,38 @@ public final class DistributedClusterer implements Learner, Configurable {
 
     private Instances dataset;
 
-    public ClassOption learnerOption = new ClassOption("learner", 'l', "Clusterer to use.", LocalClustererAdapter.class,
+    public ClassOption learnerOption = new ClassOption("learner", 'l', "Clusterer to use.",
+            LocalClustererAdapter.class,
             ClustreamClustererAdapter.class.getName());
 
-    public IntOption paralellismOption = new IntOption("paralellismOption", 'P', "The paralellism level for concurrent processes", 2, 1, Integer.MAX_VALUE);
+    public IntOption paralellismOption = new IntOption("paralellismOption", 'P',
+            "The paralellism level for concurrent processes", 2, 1, Integer.MAX_VALUE);
 
     private TopologyBuilder builder;
 
-//    private ClusteringDistributorProcessor distributorP;
+    // private ClusteringDistributorProcessor distributorP;
     private LocalClustererProcessor learnerP;
 
-//    private Stream distributorToLocalStream;
+    // private Stream distributorToLocalStream;
     private Stream localToGlobalStream;
 
-//    private int parallelism;
+    // private int parallelism;
 
     @Override
     public void init(TopologyBuilder builder, Instances dataset, int parallelism) {
         this.builder = builder;
         this.dataset = dataset;
-//        this.parallelism = parallelism;
+        // this.parallelism = parallelism;
         this.setLayout();
     }
 
     protected void setLayout() {
         // Distributor
-//        distributorP = new ClusteringDistributorProcessor();
-//        this.builder.addProcessor(distributorP, parallelism);
-//        distributorToLocalStream = this.builder.createStream(distributorP);
-//        distributorP.setOutputStream(distributorToLocalStream);
-//        distributorToGlobalStream = this.builder.createStream(distributorP);
+        // distributorP = new ClusteringDistributorProcessor();
+        // this.builder.addProcessor(distributorP, parallelism);
+        // distributorToLocalStream = this.builder.createStream(distributorP);
+        // distributorP.setOutputStream(distributorToLocalStream);
+        // distributorToGlobalStream = this.builder.createStream(distributorP);
 
         // Local Clustering
         learnerP = new LocalClustererProcessor();
@@ -106,13 +108,13 @@ public final class DistributedClusterer implements Learner, Configurable {
 
     @Override
     public Processor getInputProcessor() {
-//        return distributorP;
+        // return distributorP;
         return learnerP;
     }
 
     @Override
     public Set<Stream> getResultStreams() {
-    	Set<Stream> streams = ImmutableSet.of(this.resultStream);
-		return streams;
+        Set<Stream> streams = ImmutableSet.of(this.resultStream);
+        return streams;
     }
 }
