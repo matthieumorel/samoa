@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yahoo.labs.samoa.instances;
 
 /*
  * #%L
  * SAMOA
  * %%
- * Copyright (C) 2013 Yahoo! Inc.
+ * Copyright (C) 2013 - 2015 Yahoo! Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,50 +21,38 @@ package com.yahoo.labs.samoa.instances;
  */
 
 import java.io.Serializable;
+import java.util.Map;
 
-/**
- *
- * @author abifet
- */
 
-public interface Instance extends Serializable{
+public interface Instance extends Serializable {
 
-    double weight();
-    void setWeight(double weight);
-    
-    //Attributes
-    Attribute attribute(int instAttIndex);
-    void deleteAttributeAt(int i);
-    void insertAttributeAt(int i);
-    int numAttributes();
-    public void addSparseValues(int[] indexValues, double[] attributeValues, int numberAttributes);
-    
+    Instance setLabel(double label);
 
-    //Values
-    int numValues();
-    String stringValue(int i);
-    double value(int instAttIndex);
-    double value(Attribute attribute);
-    void setValue(int m_numAttributes, double d);
-    boolean isMissing(int instAttIndex);
-    int index(int i);
-    double valueSparse(int i);
-    boolean isMissingSparse(int p1);
-    double[] toDoubleArray();
-    
-    //Class
-    Attribute classAttribute();
-    int classIndex();
-    boolean classIsMissing();
-    double classValue();
-    int numClasses();
-    void setClassValue(double d);
+    double getLabel();
 
-    Instance copy();
+    /**
+     *
+     * @return total number of attributes (regardless of whether they are present in the instance)
+     */
+    int getNumAttributes();
 
-    //Dataset
-    void setDataset(Instances dataset);
-    Instances dataset();
-    String toString();
+    /**
+     * @return the values of attributes. For a sparse implementation, absent values are set to zero.
+     */
+    double[] getAttributes();
+
+    Instance setWeight(double weight);
+
+    double getWeight();
+
+    double getAttribute(int index);
+
+    Instance setMetadata(Map<Object, Object> metadata);
+
+    /**
+     * TODO use java 8's optional?
+     * @return null if absent, otherwise arbitrary metadata
+     */
+    Map<Object, Object> getMetadata();
+
 }
-

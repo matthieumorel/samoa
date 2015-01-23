@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yahoo.labs.samoa.instances;
 
 /*
  * #%L
  * SAMOA
  * %%
- * Copyright (C) 2013 Yahoo! Inc.
+ * Copyright (C) 2013 - 2015 Yahoo! Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,26 +20,53 @@ package com.yahoo.labs.samoa.instances;
  * #L%
  */
 
-/**
- *
- * @author abifet
- */
-public class SparseInstance extends SingleLabelInstance{
-    
-    public SparseInstance(double d, double[] res) {
-         super(d,res);
-    }
-    public SparseInstance(SingleLabelInstance inst) {
-        super(inst);
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Spliterator;
+
+public class SparseInstance extends AbstractInstance {
+
+    private static final long serialVersionUID = 2978800297651832155L;
+
+    private final Map<Integer, Double> attributes;
+    private final int numAttributes;
+
+    /**
+     * @param attributes map of attributes: index - value
+     * @param numAttributes total number of attributes (usually more than the size of {@link #attributes} for a sparse instance)
+     */
+    public SparseInstance(Map<Integer, Double> attributes, int numAttributes) {
+        this.attributes = attributes;
+        this.numAttributes = numAttributes;
     }
 
-    public SparseInstance(double numberAttributes) {
-      //super(1, new double[(int) numberAttributes-1]); 
-      super(1,null,null,(int) numberAttributes);  
+    @Override
+    public int getNumAttributes() {
+        return numAttributes;
     }
-    
-    public SparseInstance(double weight, double[] attributeValues, int[] indexValues, int numberAttributes) {
-        super(weight,attributeValues,indexValues,numberAttributes);
+
+    @Override
+    public double getAttribute(int index) {
+        Double value = attributes.get(index);
+        if (value == null) {
+            return 0;
+        } else {
+            return value;
+        }
     }
-    
+
+    @Override
+    public double[] getAttributes() {
+        double[] result = new double[getNumAttributes()];
+        for (int i=0; i<result.length; i++) {
+            Double value = attributes.get(i);
+            if (value == null) {
+                result[i] = 0;
+            } else {
+                result[i] = value;
+            }
+        }
+        return result;
+    }
 }
